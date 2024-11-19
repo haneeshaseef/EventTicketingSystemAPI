@@ -3,43 +3,44 @@ package org.coursework.eventticketingsystemapi.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 @Data
 @NoArgsConstructor
+
 public abstract class Participant implements Runnable {
     @Id
     protected String participantId;
     protected String name;
     protected String email;
-    protected Boolean isActive = true;
 
     @JsonIgnore
-    protected transient Thread participantThread;
+    @Transient
+    protected  Thread participantThread;
 
-    public Participant(String name, String email, Boolean isActive) {
+    public Participant(String name, String email) {
         this.name = name;
         this.email = email;
-        this.isActive = isActive;
     }
 
     /**
      * Starts the participant's thread if not already running.
      */
     public void startParticipant() {
-        if (isActive && (participantThread == null || !participantThread.isAlive())) {
+        if (participantThread == null || !participantThread.isAlive()) {
             participantThread = new Thread(this, getClass().getSimpleName() + "-" + name);
             participantThread.start();
         } else {
-            System.out.println(getClass().getSimpleName() + " " + name + " is already running or inactive.");
+            System.out.println(getClass().getSimpleName() + " " + name + " is already running.");
         }
     }
 
     /**
-     * Stops the participant's thread gracefully by setting isActive to false.
+     * Stops the participant's thread gracefully by interrupting it.
      */
     public void stopParticipant() {
-        isActive = false;
         if (participantThread != null && participantThread.isAlive()) {
             participantThread.interrupt();
         }
@@ -51,4 +52,3 @@ public abstract class Participant implements Runnable {
     @Override
     public abstract void run();
 }
-

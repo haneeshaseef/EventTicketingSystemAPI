@@ -99,14 +99,4 @@ public class EventConfigurationService {
             throw new ResourceProcessingException("Unable to save configuration: " + e.getMessage());
         }
     }
-
-    public EventConfiguration createDefaultConfiguration() {
-        EventConfiguration defaultConfig = new EventConfiguration();
-        defaultConfig.setEventName("Default Event");
-        defaultConfig.setMaxCapacity(1000);
-        defaultConfig.setTicketReleaseRate(10);
-        defaultConfig.setCustomerRetrievalRate(5);
-        defaultConfig.setTotalTickets(0);
-        return defaultConfig;
-    }
 }

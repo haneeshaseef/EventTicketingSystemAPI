@@ -13,11 +13,13 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    // Create standardized error response method
     private ResponseEntity<Object> createErrorResponse(String message, Object errors, HttpStatus httpStatus) {
         try {
             Map<String, Object> body = new HashMap<>();
@@ -38,170 +40,126 @@ public class GlobalExceptionHandler {
         }
     }
 
+    // Base EventTicketingSystem Exception Handler
+    @ExceptionHandler(EventTicketingSystemException.class)
+    public ResponseEntity<Object> handleEventTicketingSystemException(EventTicketingSystemException ex) {
+        logger.error("Event Ticketing System Exception: {}", ex.getMessage());
+        return createErrorResponse(
+                "Event Ticketing System Error",
+                ex.getMessage(),
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
+    }
+
+    // Resource Processing Exception
     @ExceptionHandler(ResourceProcessingException.class)
-    public ResponseEntity<Object> handleConfigurationProcessingException(ResourceProcessingException ex) {
-        try {
-            logger.error("Configuration processing error: {}", ex.getMessage());
-            return createErrorResponse(
-                    "Failed to process configuration",
-                    ex.getMessage(),
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
-        } catch (Exception e) {
-            logger.error("Error handling ConfigurationProcessingException", e);
-            return handleUnexpectedException(e);
-        }
+    public ResponseEntity<Object> handleResourceProcessingException(ResourceProcessingException ex) {
+        logger.error("Resource Processing Error: {}", ex.getMessage());
+        return createErrorResponse(
+                "Resource Processing Failed",
+                ex.getMessage(),
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
     }
 
-    @ExceptionHandler(InvalidResourceOperationException.class)
-    public ResponseEntity<Object> handleInvalidConfigurationException(InvalidResourceOperationException ex) {
-        try {
-            logger.error("Invalid configuration: {}", ex.getMessage());
-            return createErrorResponse(
-                    "Invalid configuration",
-                    ex.getMessage(),
-                    HttpStatus.BAD_REQUEST
-            );
-        } catch (Exception e) {
-            logger.error("Error handling InvalidConfigurationException", e);
-            return handleUnexpectedException(e);
-        }
-    }
-
-
+    // Resource Not Found Exception
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        try {
-            logger.error("Resource not found: {}", ex.getMessage());
-            return createErrorResponse(
-                    "Resource not found",
-                    ex.getMessage(),
-                    HttpStatus.NOT_FOUND
-            );
-        } catch (Exception e) {
-            logger.error("Error handling ResourceNotFoundException", e);
-            return handleUnexpectedException(e);
-        }
+        logger.error("Resource Not Found: {}", ex.getMessage());
+        return createErrorResponse(
+                "Resource Not Found",
+                ex.getMessage(),
+                HttpStatus.NOT_FOUND
+        );
     }
 
-    @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<Object> handleIllegalStateException(IllegalStateException ex) {
-        try {
-            logger.error("Illegal state: {}", ex.getMessage());
-            return createErrorResponse(
-                    "Operation cannot be performed in current state",
-                    ex.getMessage(),
-                    HttpStatus.CONFLICT
-            );
-        } catch (Exception e) {
-            logger.error("Error handling IllegalStateException", e);
-            return handleUnexpectedException(e);
-        }
+    // Invalid Resource Operation Exception
+    @ExceptionHandler(InvalidResourceOperationException.class)
+    public ResponseEntity<Object> handleInvalidResourceOperationException(InvalidResourceOperationException ex) {
+        logger.error("Invalid Resource Operation: {}", ex.getMessage());
+        return createErrorResponse(
+                "Invalid Operation",
+                ex.getMessage(),
+                HttpStatus.BAD_REQUEST
+        );
     }
 
+    // Customer Registration Exception
+    @ExceptionHandler(CustomerRegistrationException.class)
+    public ResponseEntity<Object> handleCustomerRegistrationException(CustomerRegistrationException ex) {
+        logger.error("Customer Registration Error: {}", ex.getMessage());
+        return createErrorResponse(
+                "Customer Registration Failed",
+                ex.getMessage(),
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    // Vendor Registration Exception
+    @ExceptionHandler(VendorRegistrationException.class)
+    public ResponseEntity<Object> handleVendorRegistrationException(VendorRegistrationException ex) {
+        logger.error("Vendor Registration Error: {}", ex.getMessage());
+        return createErrorResponse(
+                "Vendor Registration Failed",
+                ex.getMessage(),
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    // Validation Exception Handler
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        try {
-            logger.error("Validation failed: {}", ex.getMessage());
-            Map<String, String> errors = new HashMap<>();
+        Map<String, String> errors = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .collect(Collectors.toMap(
+                        org.springframework.validation.FieldError::getField,
+                        org.springframework.validation.FieldError::getDefaultMessage
+                ));
 
-            ex.getBindingResult().getFieldErrors().forEach(error -> {
-                try {
-                    String fieldName = error.getField();
-                    String errorMessage = error.getDefaultMessage();
-                    errors.put(fieldName, errorMessage);
-                    logger.debug("Validation error for field '{}': {}", fieldName, errorMessage);
-                } catch (Exception e) {
-                    logger.error("Error processing field error", e);
-                    errors.put(error.getField(), "Error processing validation message");
-                }
-            });
-
-            return createErrorResponse(
-                    "Validation failed",
-                    errors,
-                    HttpStatus.BAD_REQUEST
-            );
-        } catch (Exception e) {
-            logger.error("Error handling MethodArgumentNotValidException", e);
-            return handleUnexpectedException(e);
-        }
+        logger.error("Validation Error: {}", errors);
+        return createErrorResponse(
+                "Validation Failed",
+                errors,
+                HttpStatus.BAD_REQUEST
+        );
     }
 
+    // Data Integrity Violation Handler
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-        try {
-            logger.error("Data integrity violation: {}", ex.getMessage());
-            String details = ex.getMostSpecificCause().getMessage();
-            // Clean up the database error message for client consumption
-            String clientMessage = "A database constraint was violated";
-
-            return createErrorResponse(
-                    clientMessage,
-                    details,
-                    HttpStatus.CONFLICT
-            );
-        } catch (Exception e) {
-            logger.error("Error handling DataIntegrityViolationException", e);
-            return handleUnexpectedException(e);
-        }
+        logger.error("Data Integrity Violation: {}", ex.getMessage());
+        return createErrorResponse(
+                "Data Constraint Violation",
+                "Unique constraint or data integrity rule violated",
+                HttpStatus.CONFLICT
+        );
     }
 
+    // Type Mismatch Exception
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex) {
-        try {
-            logger.error("Type mismatch: {}", ex.getMessage());
-            String error = String.format(
-                    "Parameter '%s' should be of type %s",
-                    ex.getName(),
-                    ex.getRequiredType() != null ? ex.getRequiredType().getSimpleName() : "unknown"
-            );
-
-            return createErrorResponse(
-                    "Invalid parameter type",
-                    error,
-                    HttpStatus.BAD_REQUEST
-            );
-        } catch (Exception e) {
-            logger.error("Error handling MethodArgumentTypeMismatchException", e);
-            return handleUnexpectedException(e);
-        }
+    public ResponseEntity<Object> handleTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        String errorMessage = String.format(
+                "Invalid type for parameter '%s'. Expected type: %s",
+                ex.getName(),
+                ex.getRequiredType() != null ? ex.getRequiredType().getSimpleName() : "Unknown"
+        );
+        logger.error("Type Mismatch Error: {}", errorMessage);
+        return createErrorResponse(
+                "Invalid Parameter Type",
+                errorMessage,
+                HttpStatus.BAD_REQUEST
+        );
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex) {
-        try {
-            logger.error("Illegal argument: {}", ex.getMessage());
-            return createErrorResponse(
-                    "Invalid argument provided",
-                    ex.getMessage(),
-                    HttpStatus.BAD_REQUEST
-            );
-        } catch (Exception e) {
-            logger.error("Error handling IllegalArgumentException", e);
-            return handleUnexpectedException(e);
-        }
-    }
-
+    // Catch-all for Unexpected Exceptions
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleUnexpectedException(Exception ex) {
-        try {
-            logger.error("Unexpected error occurred", ex);
-            return createErrorResponse(
-                    "An unexpected error occurred",
-                    "Please contact system administrator if the problem persists",
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
-        } catch (Exception e) {
-            logger.error("Error handling unexpected exception", e);
-            return new ResponseEntity<>(
-                    Map.of(
-                            "timestamp", LocalDateTime.now(),
-                            "status", HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                            "message", "Critical error in error handling"
-                    ),
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
-        }
+        logger.error("Unexpected error occurred", ex);
+        return createErrorResponse(
+                "Unexpected Error",
+                "An unexpected error occurred. Please contact support.",
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
     }
 }

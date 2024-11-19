@@ -12,7 +12,8 @@ import java.util.Optional;
 public interface CustomerRepository extends MongoRepository<Customer, String> {
     Optional<Customer> findByEmail(String email);
     List<Customer> findByIsActive(Boolean isActive);
-
     @Query("{'purchasedTickets': {$size: {$gt: 0}}}")
     List<Customer> findCustomersWithTickets();
+
+    Optional<Customer> findByNameIgnoreCase(String name);
 }

@@ -30,17 +30,12 @@ public class Ticket {
     private LocalDateTime createdAt;
     private LocalDateTime purchasedAt;
 
-    public Ticket() {
+    public Ticket(Vendor vendor,Customer customer, String eventName) {
+        this.vendor = vendor;
+        this.customer = customer;
+        this.eventName = eventName;
         this.createdAt = LocalDateTime.now();
+        this.purchasedAt = LocalDateTime.now();
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-        if (customer != null) {
-            this.purchasedAt = LocalDateTime.now();
-            if (!customer.getPurchasedTickets().contains(this)) {
-                customer.getPurchasedTickets().add(this);
-            }
-        }
-    }
 }

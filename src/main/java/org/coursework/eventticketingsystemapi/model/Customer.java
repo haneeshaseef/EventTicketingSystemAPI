@@ -4,136 +4,169 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
+import org.coursework.eventticketingsystemapi.exception.InvalidResourceOperationException;
 import org.coursework.eventticketingsystemapi.service.TicketPoolService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
-@Component
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true, exclude = "purchasedTickets")
-@ToString(exclude = "purchasedTickets")
+@EqualsAndHashCode(callSuper = true)
 @Document(collection = "customers")
 public class Customer extends Participant {
     private static final Logger log = LoggerFactory.getLogger(Customer.class);
-
-    @DBRef(lazy = true)
-    @JsonIgnore
-    private List<Ticket> purchasedTickets = new ArrayList<>();
+    private static final int MILLISECONDS_IN_SECOND = 1000;
 
     private int ticketsToPurchase;
-    private int ticketRetrievalInterval;
-    private final AtomicInteger ticketsPurchased = new AtomicInteger(0);
+    private long ticketRetrievalInterval;
+    private int totalTicketsPurchased;
 
+    @Setter
     @JsonIgnore
-    @Autowired
+    @Transient
     private TicketPoolService ticketPoolService;
 
-    public Customer(String name, String email, Boolean isActive, int ticketsToPurchase, int ticketRetrievalInterval) {
-        super(name, email, isActive);
+    private volatile boolean isActive;
+
+    public Customer(String name, String email, int ticketsToPurchase,
+                    long ticketRetrievalInterval) {
+        super(name, email);
         this.ticketsToPurchase = ticketsToPurchase;
         this.ticketRetrievalInterval = ticketRetrievalInterval;
+        this.totalTicketsPurchased = 0;
+        this.isActive = false;
+        log.info("Customer {} initialized with: ticketsToPurchase={}, interval={}s",
+                name, ticketsToPurchase, ticketRetrievalInterval);
+    }
+
+    private void checkAndUpdateRunningStatus() {
+        if (totalTicketsPurchased >= ticketsToPurchase) {
+            isActive = false;
+            log.info("Customer {} automatically stopped - reached max tickets to purchase: {}", getName(), ticketsToPurchase);
+        }
     }
 
     @Override
     public void run() {
-        log.info("Customer {} started ticket purchasing process with target: {} tickets",
-                getName(), ticketsToPurchase);
+        isActive = true;
+        log.info("Customer {} started ticket purchasing process", getName());
 
-        while (isActive && !Thread.currentThread().isInterrupted()) {
+        while (isActive) {
             try {
-                // Check purchase limit
-                if (ticketsPurchased.get() >= ticketsToPurchase) {
-                    log.info("Customer {} reached ticket limit of {}. Stopping purchase process.",
-                            getName(), ticketsToPurchase);
-                    stopCustomer();
+                if (!ticketPoolService.isConfigured()) {
+                    log.warn("Customer {} waiting - no active event configuration found. Will retry in {} s.",
+                            getName(), ticketRetrievalInterval);
+                    Thread.sleep(ticketRetrievalInterval * MILLISECONDS_IN_SECOND);
+                    continue;
+                }
+
+                int currentAvailable = ticketPoolService.getAvailableTickets().get();
+                int remainingTickets = ticketsToPurchase - totalTicketsPurchased;
+
+                log.debug("Customer {} status check: currentAvailable={}, remainingTickets={}, totalPurchased={}",
+                        getName(), currentAvailable, remainingTickets, totalTicketsPurchased);
+
+                // Check if the target is already reached
+                checkAndUpdateRunningStatus();
+                if (!isActive) {
+                    log.info("Customer {} reached purchase target: {}", getName(), ticketsToPurchase);
                     break;
                 }
 
-                // Verify event configuration
-                if (!ticketPoolService.isConfigured()) {
-                    log.warn("Customer {} waiting - Event not configured", getName());
-                    Thread.sleep(ticketRetrievalInterval);
-                    continue;
+                if (currentAvailable > 0 && remainingTickets > 0) {
+                    int maxBatchSize = ticketPoolService.getEventConfiguration().getCustomerRetrievalRate();
+                    int ticketsToAttempt = Math.min(
+                            Math.min(maxBatchSize, currentAvailable),
+                            remainingTickets
+                    );
+
+                    if (ticketsToAttempt > 0) {
+                        log.info("Customer {} attempting to purchase {} tickets", getName(), ticketsToAttempt);
+                        try {
+                            int purchasedTickets = ticketPoolService.purchaseTickets(this, ticketsToAttempt);
+
+                            if (purchasedTickets > 0) {
+                                totalTicketsPurchased += purchasedTickets;
+                                log.info("Customer {} purchased {} tickets. Total: {}/{}",
+                                        getName(), purchasedTickets, totalTicketsPurchased, ticketsToPurchase);
+
+                                checkAndUpdateRunningStatus();
+                                if (!isActive) {
+                                    stopCustomer();
+                                    break;
+                                }
+                            }
+
+                            Thread.sleep(ticketRetrievalInterval * MILLISECONDS_IN_SECOND);
+                        } catch (InvalidResourceOperationException e) {
+                            log.warn("Customer {} purchase attempt failed: {}", getName(), e.getMessage());
+                            if (e.getMessage().contains("reached their limit")) {
+                                isActive = false;
+                                stopCustomer();
+                                break;
+                            }
+                            Thread.sleep(MILLISECONDS_IN_SECOND);
+                        }
+                    } else {
+                        log.info("Customer {} reached purchase limit: totalPurchased={}, targetAmount={}",
+                                getName(), totalTicketsPurchased, ticketsToPurchase);
+                        isActive = false;
+                        stopCustomer();
+                        break;
+                    }
+                } else {
+                    if (currentAvailable == 0) {
+                        log.warn("Customer {} waiting - no tickets currently available for purchase. Will retry in {} s.",
+                                getName(), ticketRetrievalInterval);
+                    } else {
+                        log.debug("Customer {} waiting - target already reached or no more tickets to purchase", getName());
+                    }
+                    Thread.sleep(ticketRetrievalInterval * MILLISECONDS_IN_SECOND);
                 }
-
-                // Check available tickets
-                if (ticketPoolService.getAvailableTickets() <= 0) {
-                    log.info("Customer {} waiting - No tickets available", getName());
-                    Thread.sleep(ticketRetrievalInterval);
-                    continue;
-                }
-
-                // Attempt purchase
-                boolean purchased = ticketPoolService.purchaseTickets(this);
-                if (purchased) {
-                    int currentPurchased = ticketsPurchased.incrementAndGet();
-                    log.info("Customer {} successfully purchased ticket {}/{}",
-                            getName(), currentPurchased, ticketsToPurchase);
-                }
-
-                // Wait before next attempt
-                Thread.sleep(ticketRetrievalInterval);
-
             } catch (InterruptedException e) {
-                log.info("Customer {} purchase process interrupted", getName());
+                log.warn("Customer {} thread interrupted during purchase process", getName());
                 Thread.currentThread().interrupt();
+                isActive = false;
+                stopCustomer();
                 break;
             } catch (Exception e) {
-                log.error("Customer {} encountered error during purchase: {}",
-                        getName(), e.getMessage(), e);
+                log.error("Customer {} encountered an error during ticket purchase: {}", getName(), e.getMessage(), e);
                 try {
-                    Thread.sleep(1000); // Brief pause on error
+                    log.debug("Customer {} will retry operation after 1 second delay", getName());
+                    Thread.sleep(MILLISECONDS_IN_SECOND);
                 } catch (InterruptedException ie) {
+                    log.warn("Customer {} interrupted during error recovery", getName());
                     Thread.currentThread().interrupt();
+                    isActive = false;
+                    stopCustomer();
                     break;
                 }
             }
         }
 
-        log.info("Customer {} finished purchasing process. Final count: {}/{}",
-                getName(), ticketsPurchased.get(), ticketsToPurchase);
+        log.info("Customer {} completed purchase process. Final statistics: purchasedTickets={}, targetAmount={}, completionRate={}%",
+                getName(), totalTicketsPurchased, ticketsToPurchase,
+                (totalTicketsPurchased * 100 / ticketsToPurchase));
     }
 
     public void startCustomer() {
+        if (totalTicketsPurchased >= ticketsToPurchase) {
+            log.warn("Customer {} cannot start - already reached ticket purchase target: {}", getName(), ticketsToPurchase);
+            return;
+        }
         startParticipant();
-        log.info("Customer {} started with target of {} tickets", getName(), ticketsToPurchase);
+        log.info("Customer {} initialized for ticket purchases", getName());
+        isActive = true;
     }
 
     public void stopCustomer() {
+        isActive = false;
         stopParticipant();
-        log.info("Customer {} stopped. Final ticket count: {}/{}",
-                getName(), ticketsPurchased.get(), ticketsToPurchase);
-    }
-
-    public void reset() {
-        this.purchasedTickets.clear();
-        this.ticketsPurchased.set(0);
-        log.info("Customer {} reset. Purchase history cleared.", getName());
-    }
-
-    public List<Ticket> getPurchasedTickets() {
-        return new ArrayList<>(purchasedTickets);
-    }
-
-    public void addPurchasedTicket(Ticket ticket) {
-        if (ticket != null) {
-            purchasedTickets.add(ticket);
-            log.debug("Added ticket {} to customer {}'s purchases",
-                    ticket.getTicketId(), getName());
-        }
-    }
-
-    public int getTicketsPurchasedCount() {
-        return ticketsPurchased.get();
+        log.info("Customer {} stopped. Purchase summary: totalPurchased={}, targetAmount={}, completionRate={}%",
+                getName(), totalTicketsPurchased, ticketsToPurchase,
+                (totalTicketsPurchased * 100 / ticketsToPurchase));
     }
 }
