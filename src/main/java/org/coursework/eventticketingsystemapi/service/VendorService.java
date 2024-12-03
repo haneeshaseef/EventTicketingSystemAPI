@@ -34,6 +34,19 @@ public class VendorService {
     }
 
     /**
+     * Retrieves all vendors from the repository.
+     *
+     * @return Map of all vendors with their participant IDs as keys
+     */
+    public Map<String, Vendor> getAllVendors() {
+        log.debug("Retrieving all vendors");
+        Map<String, Vendor> allVendors = new ConcurrentHashMap<>();
+        vendorRepository.findAll().forEach(vendor -> allVendors.put(vendor.getParticipantId(), vendor));
+        log.info("Successfully retrieved {} all vendors", allVendors.size());
+        return allVendors;
+    }
+
+    /**
      * Retrieves all active vendors from the repository and initializes their services.
      *
      * @return Map of active vendors with their participant IDs as keys
@@ -68,6 +81,7 @@ public class VendorService {
             validateVendorConfiguration(vendor);
 
             Optional<Vendor> existingVendor = vendorRepository.findByEmailIgnoreCase(vendor.getEmail());
+
             return existingVendor.map(value -> handleExistingVendor(value, vendor)).orElseGet(() -> createNewVendor(vendor));
 
         } catch (IllegalArgumentException e) {
@@ -206,6 +220,24 @@ public class VendorService {
     }
 
     /**
+     * Reactivates a vendor by starting their thread and updating their status.
+     *
+     * @param vendorName Name of the vendor to reactivate
+     * @throws IllegalArgumentException If vendor is not found
+     */
+    public void reactivateVendor(String vendorName) {
+        log.debug("Reactivating vendor: {}", vendorName);
+        Vendor vendor = findVendorByName(vendorName)
+                .orElseThrow(() -> new IllegalArgumentException("Vendor not found with name: " + vendorName));
+        vendor.startVendor();
+        vendor.setActive(true);
+        vendorRepository.save(vendor);
+        activeVendors.put(vendor.getParticipantId(), vendor);
+
+        log.info("Successfully reactivated vendor: {}", vendorName);
+    }
+
+    /**
      * Retrieves a vendor by their unique identifier.
      *
      * @param vendorId Unique identifier of the vendor
@@ -233,4 +265,25 @@ public class VendorService {
             throw new ResourceProcessingException("Failed to find vendor by name");
         }
     }
+
+    // update vendor by name
+    public Vendor updateVendor(String vendorName, Vendor vendor) {
+        try {
+            log.debug("Updating vendor: {}", vendorName);
+            Vendor existingVendor = findVendorByName(vendorName)
+                    .orElseThrow(() -> new IllegalArgumentException("Vendor not found with name: " + vendorName));
+
+            existingVendor.setEmail(vendor.getEmail());
+            existingVendor.setTicketsPerRelease(vendor.getTicketsPerRelease());
+            existingVendor.setTicketReleaseInterval(vendor.getTicketReleaseInterval());
+            existingVendor.setTicketsToSell(vendor.getTicketsToSell());
+
+            return vendorRepository.save(existingVendor);
+        } catch (Exception e) {
+            log.error("Error updating vendor {}: {}", vendorName, e.getMessage(), e);
+            throw new ResourceProcessingException("Failed to update vendor");
+        }
+    }
+
+
 }

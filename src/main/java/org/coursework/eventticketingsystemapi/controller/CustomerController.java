@@ -27,7 +27,21 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping
+    //Get all customers
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, Object>> getAllCustomers() {
+        log.debug("Retrieving all customers");
+        Map<String, Customer> allCustomers = customerService.getAllCustomers();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("customers", allCustomers);
+        response.put("count", allCustomers.size());
+
+        log.info("Successfully retrieved {} all customers", allCustomers.size());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/active")
     public ResponseEntity<Map<String, Object>> getActiveCustomers() {
         log.debug("Retrieving active customers");
         Map<String, Customer> activeCustomers = customerService.getActiveCustomers();
@@ -55,18 +69,48 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("/{customerId}/deactivate")
-    public ResponseEntity<Map<String, Object>> deactivateCustomer(@PathVariable String customerId) {
-        log.debug("Deactivating customer: {}", customerId);
-        Customer customer = customerService.getCustomerById(customerId);
-        customerService.deactivateCustomer(customerId);
+    @PutMapping("/{customerName}/deactivate")
+    public ResponseEntity<Map<String, Object>> deactivateCustomer(@PathVariable String customerName) {
+        log.debug("Deactivating customer: {}", customerName);
+        Customer customer = customerService.getCustomerById(customerName);
+        customerService.deactivateCustomer(customerName);
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Customer successfully deactivated");
         response.put("customerName", customer.getName());
         response.put("ticketsPurchased", customer.getTotalTicketsPurchased());
 
-        log.info("Successfully deactivated customer: {}", customerId);
+        log.info("Successfully deactivated customer: {}", customerName);
+        return ResponseEntity.ok(response);
+    }
+
+    // reactive customer by name
+    @PutMapping("/{customerName}/reactivate")
+    public ResponseEntity<Map<String, Object>> reactivateCustomer(@PathVariable String customerName) {
+        log.debug("Reactivating customer: {}", customerName);
+        Customer customer = customerService.getCustomerById(customerName);
+        customerService.reactivateCustomer(customerName);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Customer successfully reactivated");
+        response.put("customerName", customer.getName());
+        response.put("ticketsPurchased", customer.getTotalTicketsPurchased());
+
+        log.info("Successfully reactivated customer: {}", customerName);
+        return ResponseEntity.ok(response);
+    }
+
+    //find total tickets purchased by customer
+    @GetMapping("/{customerName}/totalTicketsPurchased")
+    public ResponseEntity<Map<String, Object>> findTotalTicketsPurchasedByCustomer(@PathVariable String customerName) {
+        log.debug("Finding total tickets purchased by customer: {}", customerName);
+        int totalTicketsPurchased = customerService.findTotalTicketsPurchasedByCustomer(customerName);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("customerName", customerName);
+        response.put("totalTicketsPurchased", totalTicketsPurchased);
+
+        log.info("Successfully found total tickets purchased by customer: {}", customerName);
         return ResponseEntity.ok(response);
     }
 

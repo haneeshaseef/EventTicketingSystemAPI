@@ -311,7 +311,7 @@ public class TicketPoolService {
 
                 // Create tickets
                 for (int i = 0; i < purchaseFromVendor; i++) {
-                    ticketsToSave.add(new Ticket(vendor, updatedCustomer, eventConfiguration.getEventName()));
+                    ticketsToSave.add(new Ticket(vendor, updatedCustomer));
                 }
 
                 // Update counts atomically

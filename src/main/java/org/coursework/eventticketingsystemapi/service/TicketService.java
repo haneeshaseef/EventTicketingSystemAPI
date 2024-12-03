@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
@@ -51,17 +49,11 @@ public class TicketService {
         }
     }
 
-    /**
-     * Retrieves all active tickets and returns them as a map.
-     *
-     * @return a map of all active tickets
-     * @throws ResourceProcessingException if there is an error retrieving the tickets
-     */
-    public Map<String, Ticket> getActiveTickets() {
+
+    public List<Ticket> getAllTickets() {
         try {
             log.info("Retrieving all active tickets");
-            List<Ticket> tickets = ticketRepository.findAll();
-            return tickets.stream().collect(Collectors.toMap(Ticket::getTicketId, ticket -> ticket));
+            return ticketRepository.findAll();
         } catch (Exception e) {
             log.error("Error retrieving active tickets", e);
             throw new ResourceProcessingException("Failed to retrieve active tickets");
@@ -69,41 +61,22 @@ public class TicketService {
     }
 
     /**
-     * Retrieves a list of tickets for the specified event name.
-     *
-     * @param eventName the name of the event
-     * @return a list of tickets for the event
-     * @throws ResourceProcessingException if there is an error retrieving the tickets
-     */
-    public List<Ticket> getTicketsByEventName(String eventName) {
-        try {
-            if (eventName == null || eventName.trim().isEmpty()) {
-                throw new IllegalArgumentException("Event name cannot be null or empty");
-            }
-            log.info("Retrieving tickets for event: {}", eventName);
-            return ticketRepository.findByEventName(eventName);
-        } catch (Exception e) {
-            log.error("Error retrieving tickets for event: {}", eventName, e);
-            throw new ResourceProcessingException("Failed to retrieve tickets by event name");
-        }
-    }
-
-    /**
      * Retrieves a list of tickets for the specified vendor.
      *
-     * @param vendorId the ID of the vendor
+     * @param vendorName the ID of the vendor
      * @return a list of tickets for the vendor
      * @throws ResourceProcessingException if there is an error retrieving the tickets
      */
-    public List<Ticket> getTicketsByVendor(String vendorId) {
+    public List<Ticket> getTicketsByVendor(String vendorName) {
         try {
-            if (vendorId == null || vendorId.trim().isEmpty()) {
-                throw new IllegalArgumentException("Vendor ID cannot be null or empty");
+            if (vendorName == null || vendorName.trim().isEmpty()) {
+                throw new IllegalArgumentException("Vendor name cannot be null or empty");
             }
-            log.info("Retrieving tickets for vendor: {}", vendorId);
-            return ticketRepository.findByVendorParticipantId(vendorId);
+
+            log.info("Retrieving tickets for vendor: {}", vendorName);
+            return ticketRepository.findTicketsByVendorName(vendorName);
         } catch (Exception e) {
-            log.error("Error retrieving tickets for vendor: {}", vendorId, e);
+            log.error("Error retrieving tickets for vendor: {}", vendorName, e);
             throw new ResourceProcessingException("Failed to retrieve tickets by vendor");
         }
     }
@@ -120,8 +93,9 @@ public class TicketService {
             if (customerId == null || customerId.trim().isEmpty()) {
                 throw new IllegalArgumentException("Customer ID cannot be null or empty");
             }
+
             log.info("Retrieving tickets for customer: {}", customerId);
-            return ticketRepository.findByCustomerParticipantId(customerId);
+            return ticketRepository.findTicketsByCustomerParticipantId(customerId);
         } catch (Exception e) {
             log.error("Error retrieving tickets for customer: {}", customerId, e);
             throw new ResourceProcessingException("Failed to retrieve tickets by customer");

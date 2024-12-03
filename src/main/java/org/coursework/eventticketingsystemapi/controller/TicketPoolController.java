@@ -1,7 +1,9 @@
 package org.coursework.eventticketingsystemapi.controller;
 
+import org.coursework.eventticketingsystemapi.model.Customer;
 import org.coursework.eventticketingsystemapi.model.EventConfiguration;
 import org.coursework.eventticketingsystemapi.model.Ticket;
+import org.coursework.eventticketingsystemapi.service.CustomerService;
 import org.coursework.eventticketingsystemapi.service.EventConfigurationService;
 import org.coursework.eventticketingsystemapi.service.TicketPoolService;
 import org.coursework.eventticketingsystemapi.service.TicketService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,13 +28,15 @@ public class TicketPoolController {
     private final TicketPoolService ticketPoolService;
     private final EventConfigurationService configurationService;
     private final TicketService ticketService;
+    private final CustomerService customerService;
 
     @Autowired
     public TicketPoolController(TicketPoolService ticketPoolService,
-                                EventConfigurationService configurationService,TicketService ticketService) {
+                                EventConfigurationService configurationService,TicketService ticketService,CustomerService customerService) {
         this.ticketPoolService = ticketPoolService;
         this.configurationService = configurationService;
         this.ticketService = ticketService;
+        this.customerService = customerService;
     }
 
     // Event Configuration Endpoints
@@ -80,51 +85,39 @@ public class TicketPoolController {
         return ResponseEntity.ok(status);
     }
 
-    @GetMapping("/tickets/event/{eventName}")
-    public ResponseEntity<Map<String, Object>> getEventTicketStatus(@PathVariable String eventName) {
-        List<Ticket> eventTickets = ticketService.getTicketsByEventName(eventName);
-
-        Map<String, Object> ticketStatus = new HashMap<>();
-        ticketStatus.put("totalTickets", eventTickets.size());
-        ticketStatus.put("vendorDistribution", getVendorTicketDistribution(eventTickets));
-        ticketStatus.put("customerDistribution", getCustomerTicketDistribution(eventTickets));
-
-        return ResponseEntity.ok(ticketStatus);
+    //get all tickets
+    @GetMapping("/tickets")
+    public ResponseEntity<List<Ticket>> getAllTickets() {
+        List<Ticket> tickets = ticketService.getAllTickets();
+        return ResponseEntity.ok(tickets);
     }
 
-    @GetMapping("/tickets/vendor/{vendorId}")
-    public ResponseEntity<Map<String, Object>> getVendorTicketStatus(@PathVariable String vendorId) {
-        List<Ticket> vendorTickets = ticketService.getTicketsByVendor(vendorId);
+    //find ticket by customer name
+    @GetMapping("/{customerName}/tickets")
+    public ResponseEntity<List<Ticket>> findTicketsByCustomer(@PathVariable String customerName) {
+        Optional<Customer> customer = customerService.findCustomerByName(customerName);
 
-        Map<String, Object> vendorStatus = new HashMap<>();
-        vendorStatus.put("totalTicketsSold", vendorTickets.size());
-        vendorStatus.put("ticketEvents", vendorTickets.stream()
-                .map(Ticket::getEventName)
-                .distinct()
-                .collect(Collectors.toList()));
+        if (customer.isPresent()) {
+            List<Ticket> tickets = ticketService.getTicketsByCustomer(customer.get().getParticipantId());
+            return ResponseEntity.ok(tickets);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
 
-        return ResponseEntity.ok(vendorStatus);
     }
 
-    @GetMapping("/tickets/customer/{customerId}")
-    public ResponseEntity<Map<String, Object>> getCustomerTicketStatus(@PathVariable String customerId) {
-        List<Ticket> customerTickets = ticketService.getTicketsByCustomer(customerId);
-
-        Map<String, Object> customerStatus = new HashMap<>();
-        customerStatus.put("totalTicketsPurchased", customerTickets.size());
-        customerStatus.put("ticketEvents", customerTickets.stream()
-                .map(Ticket::getEventName)
-                .distinct()
-                .collect(Collectors.toList()));
-
-        return ResponseEntity.ok(customerStatus);
+    //find ticket by vendor name
+    @GetMapping("/{vendorName}/tickets")
+    public ResponseEntity<List<Ticket>> findTicketsByVendor(@PathVariable String vendorName) {
+        List<Ticket> tickets = ticketService.getTicketsByVendor(vendorName);
+        return ResponseEntity.ok(tickets);
     }
 
-    //delete ticket
-    @DeleteMapping("/tickets/{ticketId}")
-    public ResponseEntity<String> deleteTicket(@PathVariable String ticketId) {
+    //deleteTicketForCustomer with ticket ID
+    @DeleteMapping("/tickets/{customerName}/deleteTicket")
+    public ResponseEntity<String> deleteTicketForCustomer(@PathVariable String customerName, @RequestParam String ticketId) {
         ticketService.deleteTicket(ticketId);
-        return ResponseEntity.ok("Ticket deleted successfully");
+        return ResponseEntity.ok("Ticket with ID " + ticketId +"and for customer"+ customerName+ " deleted successfully");
     }
 
     //get ticket by id

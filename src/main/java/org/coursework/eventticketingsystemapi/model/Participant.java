@@ -3,7 +3,6 @@ package org.coursework.eventticketingsystemapi.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 
@@ -23,6 +22,7 @@ public abstract class Participant implements Runnable {
     public Participant(String name, String email) {
         this.name = name;
         this.email = email;
+
     }
 
     /**

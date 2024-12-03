@@ -24,16 +24,12 @@ public class Ticket {
     @DBRef
     private Customer customer;
 
-    @Indexed
-    private String eventName;
-
     private LocalDateTime createdAt;
     private LocalDateTime purchasedAt;
 
-    public Ticket(Vendor vendor,Customer customer, String eventName) {
+    public Ticket(Vendor vendor,Customer customer) {
         this.vendor = vendor;
         this.customer = customer;
-        this.eventName = eventName;
         this.createdAt = LocalDateTime.now();
         this.purchasedAt = LocalDateTime.now();
     }

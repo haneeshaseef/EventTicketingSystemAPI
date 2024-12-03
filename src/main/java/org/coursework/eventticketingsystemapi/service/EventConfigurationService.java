@@ -99,4 +99,5 @@ public class EventConfigurationService {
             throw new ResourceProcessingException("Unable to save configuration: " + e.getMessage());
         }
     }
+
 }

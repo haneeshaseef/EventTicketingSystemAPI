@@ -27,7 +27,21 @@ public class VendorController {
         this.vendorService = vendorService;
     }
 
-    @GetMapping
+    //Get all Vendors
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, Object>> getAllVendors() {
+        log.debug("Retrieving all vendors");
+        Map<String, Vendor> allVendors = vendorService.getAllVendors();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("vendors", allVendors);
+        response.put("count", allVendors.size());
+
+        log.info("Successfully retrieved {} all vendors", allVendors.size());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/active")
     public ResponseEntity<Map<String, Object>> getActiveVendors() {
         log.debug("Retrieving active vendors");
         Map<String, Vendor> activeVendors = vendorService.getActiveVendors();
@@ -55,32 +69,47 @@ public class VendorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("/{vendorId}/deactivate")
-    public ResponseEntity<Map<String, Object>> deactivateVendor(@PathVariable String vendorId) {
-        log.debug("Deactivating vendor: {}", vendorId);
-        Vendor vendor = vendorService.getVendorById(vendorId);
-        vendorService.deactivateVendor(vendorId);
+    //update vendor by name
+    @PutMapping("/{vendorName}")
+    public ResponseEntity<Map<String, Object>> updateVendor(@PathVariable String vendorName, @RequestBody Vendor vendor) {
+        validateVendorInput(vendor);
+
+        log.debug("Updating vendor: {}", vendorName);
+        Vendor updatedVendor = vendorService.updateVendor(vendorName, vendor);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("message", "Vendor successfully deactivated");
-        response.put("vendorName", vendor.getName());
-        response.put("totalTicketsSold", vendor.getTotalTicketsSold());
+        response.put("vendor", updatedVendor);
+        response.put("message", "Vendor successfully updated");
 
-        log.info("Successfully deactivated vendor: {}", vendorId);
+        log.info("Successfully updated vendor: {}", vendorName);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{vendorId}")
-    public ResponseEntity<Map<String, Object>> getVendorById(@PathVariable String vendorId) {
-        log.debug("Retrieving vendor by ID: {}", vendorId);
-        Vendor vendor = vendorService.getVendorById(vendorId);
+    //deactivate vendor by name
+    @PutMapping("/{vendorName}/deactivate")
+    public ResponseEntity<Map<String, Object>> deactivateVendor(@PathVariable String vendorName) {
+        log.debug("Deactivating vendor: {}", vendorName);
+        vendorService.deactivateVendor(vendorName);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("vendor", vendor);
-        response.put("totalTicketsSold", vendor.getTotalTicketsSold());
-        response.put("isActive", vendor.isActive());
+        response.put("message", "Vendor successfully deactivated");
+        response.put("vendorName", vendorName);
 
-        log.info("Successfully retrieved vendor: {}", vendor.getName());
+        log.info("Successfully deactivated vendor: {}", vendorName);
+        return ResponseEntity.ok(response);
+    }
+
+    //reactive vendor by name
+    @PutMapping("/{vendorName}/reactivate")
+    public ResponseEntity<Map<String, Object>> reactivateVendor(@PathVariable String vendorName) {
+        log.debug("Reactivating vendor: {}", vendorName);
+        vendorService.reactivateVendor(vendorName);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Vendor successfully reactivated");
+        response.put("vendorName", vendorName);
+
+        log.info("Successfully reactivated vendor: {}", vendorName);
         return ResponseEntity.ok(response);
     }
 
@@ -105,13 +134,11 @@ public class VendorController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{vendorId}")
-    public ResponseEntity<Map<String, Object>> deleteVendor(@PathVariable String vendorId) {
-        log.debug("Deleting vendor: {}", vendorId);
-        Vendor vendor = vendorService.getVendorById(vendorId);
-        String vendorName = vendor.getName();
+    @DeleteMapping("/{vendorName}")
+    public ResponseEntity<Map<String, Object>> deleteVendor(@PathVariable String vendorName) {
+        log.debug("Deleting vendor: {}", vendorName);
 
-        vendorService.deactivateVendor(vendorId);
+        vendorService.deactivateVendor(vendorName);
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Vendor successfully deleted");
