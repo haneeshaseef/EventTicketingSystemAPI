@@ -81,26 +81,26 @@ public class TicketService {
         }
     }
 
-    /**
-     * Retrieves a list of tickets for the specified customer.
-     *
-     * @param customerId the ID of the customer
-     * @return a list of tickets for the customer
-     * @throws ResourceProcessingException if there is an error retrieving the tickets
-     */
-    public List<Ticket> getTicketsByCustomer(String customerId) {
-        try {
-            if (customerId == null || customerId.trim().isEmpty()) {
-                throw new IllegalArgumentException("Customer ID cannot be null or empty");
-            }
-
-            log.info("Retrieving tickets for customer: {}", customerId);
-            return ticketRepository.findTicketsByCustomerParticipantId(customerId);
-        } catch (Exception e) {
-            log.error("Error retrieving tickets for customer: {}", customerId, e);
-            throw new ResourceProcessingException("Failed to retrieve tickets by customer");
-        }
-    }
+//    /**
+//     * Retrieves a list of tickets for the specified customer.
+//     *
+//     * @param customerId the ID of the customer
+//     * @return a list of tickets for the customer
+//     * @throws ResourceProcessingException if there is an error retrieving the tickets
+//     */
+//    public List<Ticket> getTicketsByCustomer(String customerId) {
+//        try {
+//            if (customerId == null || customerId.trim().isEmpty()) {
+//                throw new IllegalArgumentException("Customer ID cannot be null or empty");
+//            }
+//
+//            log.info("Retrieving tickets for customer: {}", customerId);
+//            return ticketRepository.findTicketsByCustomerParticipantId(customerId);
+//        } catch (Exception e) {
+//            log.error("Error retrieving tickets for customer: {}", customerId, e);
+//            throw new ResourceProcessingException("Failed to retrieve tickets by customer");
+//        }
+//    }
 
     /**
      * Deletes the ticket with the specified ID.
@@ -142,6 +142,21 @@ public class TicketService {
         } catch (Exception e) {
             log.error("Error retrieving ticket: {}", ticketId, e);
             throw new ResourceProcessingException("Failed to retrieve ticket");
+        }
+    }
+
+    //get ticket by customer Id
+    public List<Ticket> getTicketsByCustomer(String customerId) {
+        try {
+            if (customerId == null || customerId.trim().isEmpty()) {
+                throw new IllegalArgumentException("Customer ID cannot be null or empty");
+            }
+
+            log.info("Retrieving tickets for customer: {}", customerId);
+            return ticketRepository.findTicketsByCustomerParticipantId(customerId);
+        } catch (Exception e) {
+            log.error("Error retrieving tickets for customer: {}", customerId, e);
+            throw new ResourceProcessingException("Failed to retrieve tickets by customer");
         }
     }
 

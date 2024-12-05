@@ -238,6 +238,28 @@ public class VendorService {
     }
 
     /**
+     * Deletes a vendor by deactivating them and removing them from the repository.
+     *
+     * @param vendorName Unique identifier of the vendor to delete
+     * @throws ResourceProcessingException If deletion fails
+     * @throws IllegalArgumentException If vendor is not found
+     */
+    public void deleteVendor(String vendorName) {
+        try {
+            log.info("Deleting vendor: {}", vendorName);
+            Vendor vendor = findVendorByName(vendorName)
+                    .orElseThrow(() -> new IllegalArgumentException("Vendor not found with name: " + vendorName));
+            deactivateVendor(vendor.getParticipantId());
+            vendorRepository.delete(vendor);
+
+            log.info("Vendor {} successfully deleted", vendorName);
+        } catch (Exception e) {
+            log.error("Error deleting vendor {}: {}", vendorName, e.getMessage(), e);
+            throw new ResourceProcessingException("Failed to delete vendor");
+        }
+    }
+
+    /**
      * Retrieves a vendor by their unique identifier.
      *
      * @param vendorId Unique identifier of the vendor
@@ -263,6 +285,23 @@ public class VendorService {
         } catch (Exception e) {
             log.error("Error finding vendor by name {}: {}", name, e.getMessage(), e);
             throw new ResourceProcessingException("Failed to find vendor by name");
+        }
+    }
+
+    /**
+     * Finds a vendor by their email (case-insensitive).
+     *
+     * @param email Email of the vendor to find
+     * @return Optional containing the vendor if found
+     * @throws ResourceProcessingException If search fails
+     */
+    public Optional<Vendor> findVendorByEmail(String email) {
+        try {
+            log.debug("Searching for vendor with email: {}", email);
+            return vendorRepository.findByEmailIgnoreCase(email);
+        } catch (Exception e) {
+            log.error("Error finding vendor by email {}: {}", email, e.getMessage(), e);
+            throw new ResourceProcessingException("Failed to find vendor by email");
         }
     }
 

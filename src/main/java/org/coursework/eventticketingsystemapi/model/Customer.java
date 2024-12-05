@@ -31,9 +31,9 @@ public class Customer extends Participant {
 
     private volatile boolean isActive;
 
-    public Customer(String name, String email, int ticketsToPurchase,
+    public Customer(String name, String email, String password,int ticketsToPurchase,
                     long ticketRetrievalInterval) {
-        super(name, email);
+        super(name, email, password);
         this.ticketsToPurchase = ticketsToPurchase;
         this.ticketRetrievalInterval = ticketRetrievalInterval;
         this.totalTicketsPurchased = 0;

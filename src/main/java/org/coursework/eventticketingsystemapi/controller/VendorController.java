@@ -138,7 +138,7 @@ public class VendorController {
     public ResponseEntity<Map<String, Object>> deleteVendor(@PathVariable String vendorName) {
         log.debug("Deleting vendor: {}", vendorName);
 
-        vendorService.deactivateVendor(vendorName);
+        vendorService.deleteVendor(vendorName);
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Vendor successfully deleted");
@@ -154,6 +154,9 @@ public class VendorController {
         }
         if (vendor.getName() == null || vendor.getName().trim().isEmpty()) {
             throw new IllegalArgumentException("Vendor name is required");
+        }
+        if (vendor.getPassword() == null || vendor.getPassword().trim().isEmpty()) {
+            throw new IllegalArgumentException("Vendor password is required");
         }
         if (vendor.getEmail() == null || vendor.getEmail().trim().isEmpty()) {
             throw new IllegalArgumentException("Vendor email is required");

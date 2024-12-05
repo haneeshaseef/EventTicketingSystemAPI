@@ -32,9 +32,9 @@ public class Vendor extends Participant{
 
     private volatile boolean isActive;
 
-    public Vendor(String name, String email, int ticketsPerRelease,
+    public Vendor(String name, String email,String password, int ticketsPerRelease,
                   int ticketReleaseInterval, int ticketsToSell) {
-        super(name, email);
+        super(name, email, password);
         this.ticketsPerRelease = ticketsPerRelease;
         this.ticketReleaseInterval = ticketReleaseInterval;
         this.ticketsToSell = ticketsToSell;

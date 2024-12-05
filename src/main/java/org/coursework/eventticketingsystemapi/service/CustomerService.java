@@ -267,6 +267,23 @@ public class CustomerService {
         }
     }
 
+   /**
+     * Retrieves the customer with the specified email.
+     *
+     * @param email the email of the customer
+     * @return the customer with the specified email
+     * @throws ResourceProcessingException if there is an error retrieving the customer
+     */
+    public Optional<Customer> findCustomerByEmail(String email) {
+        try {
+            log.debug("Searching for customer with email: {}", email);
+            return customerRepository.findByEmail(email);
+        } catch (Exception e) {
+            log.error("Error finding customer by email {}: {}", email, e.getMessage(), e);
+            throw new ResourceProcessingException("Failed to find customer by email");
+        }
+    }
+
     /**
      * Retrieves the customer with the specified ID.
      *
