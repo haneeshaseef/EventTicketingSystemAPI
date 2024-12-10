@@ -50,6 +50,12 @@ public class TicketService {
     }
 
 
+    /**
+     * Retrieves a list of all tickets.
+     *
+     * @return a list of all tickets
+     * @throws ResourceProcessingException if there is an error retrieving the tickets
+     */
     public List<Ticket> getAllTickets() {
         try {
             log.info("Retrieving all active tickets");
@@ -81,26 +87,6 @@ public class TicketService {
         }
     }
 
-//    /**
-//     * Retrieves a list of tickets for the specified customer.
-//     *
-//     * @param customerId the ID of the customer
-//     * @return a list of tickets for the customer
-//     * @throws ResourceProcessingException if there is an error retrieving the tickets
-//     */
-//    public List<Ticket> getTicketsByCustomer(String customerId) {
-//        try {
-//            if (customerId == null || customerId.trim().isEmpty()) {
-//                throw new IllegalArgumentException("Customer ID cannot be null or empty");
-//            }
-//
-//            log.info("Retrieving tickets for customer: {}", customerId);
-//            return ticketRepository.findTicketsByCustomerParticipantId(customerId);
-//        } catch (Exception e) {
-//            log.error("Error retrieving tickets for customer: {}", customerId, e);
-//            throw new ResourceProcessingException("Failed to retrieve tickets by customer");
-//        }
-//    }
 
     /**
      * Deletes the ticket with the specified ID.
@@ -108,7 +94,6 @@ public class TicketService {
      * @param ticketId the ID of the ticket to delete
      * @throws ResourceProcessingException if there is an error deleting the ticket
      */
-    @Transactional
     public void deleteTicket(String ticketId) {
         try {
             if (ticketId == null || ticketId.trim().isEmpty()) {
@@ -145,7 +130,7 @@ public class TicketService {
         }
     }
 
-    //get ticket by customer Id
+    //get ticket by customer ID
     public List<Ticket> getTicketsByCustomer(String customerId) {
         try {
             if (customerId == null || customerId.trim().isEmpty()) {
@@ -166,7 +151,6 @@ public class TicketService {
      * @param tickets the list of tickets to save
      * @throws ResourceProcessingException if there is an error saving the tickets
      */
-    @Transactional
     public void saveTickets(List<Ticket> tickets) {
         try {
             if (tickets == null || tickets.isEmpty()) {

@@ -41,6 +41,7 @@ public class VendorController {
         return ResponseEntity.ok(response);
     }
 
+    //Get active Vendors
     @GetMapping("/active")
     public ResponseEntity<Map<String, Object>> getActiveVendors() {
         log.debug("Retrieving active vendors");
@@ -54,6 +55,7 @@ public class VendorController {
         return ResponseEntity.ok(response);
     }
 
+    //Register new vendor
     @PostMapping
     public ResponseEntity<Map<String, Object>> registerVendor(@RequestBody Vendor vendor) {
         validateVendorInput(vendor);
@@ -89,7 +91,11 @@ public class VendorController {
     @PutMapping("/{vendorName}/deactivate")
     public ResponseEntity<Map<String, Object>> deactivateVendor(@PathVariable String vendorName) {
         log.debug("Deactivating vendor: {}", vendorName);
-        vendorService.deactivateVendor(vendorName);
+         Optional<Vendor> vendorOptional = vendorService.findVendorByName(vendorName);
+
+        Vendor vendor = vendorOptional.get();
+
+        vendorService.deactivateVendor(vendor.getParticipantId());
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Vendor successfully deactivated");
@@ -103,7 +109,13 @@ public class VendorController {
     @PutMapping("/{vendorName}/reactivate")
     public ResponseEntity<Map<String, Object>> reactivateVendor(@PathVariable String vendorName) {
         log.debug("Reactivating vendor: {}", vendorName);
-        vendorService.reactivateVendor(vendorName);
+
+        //find vendor by name
+       Optional<Vendor>  vendorOptional = vendorService.findVendorByName(vendorName);
+
+        Vendor vendor = vendorOptional.get();
+
+        vendorService.reactivateVendor(vendor.getParticipantId());
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Vendor successfully reactivated");
@@ -113,6 +125,7 @@ public class VendorController {
         return ResponseEntity.ok(response);
     }
 
+    //get vendor by name
     @GetMapping("/name/{name}")
     public ResponseEntity<Map<String, Object>> getVendorByName(@PathVariable String name) {
         log.debug("Retrieving vendor by name: {}", name);
@@ -134,6 +147,7 @@ public class VendorController {
         return ResponseEntity.ok(response);
     }
 
+    //get vendor by email
     @DeleteMapping("/{vendorName}")
     public ResponseEntity<Map<String, Object>> deleteVendor(@PathVariable String vendorName) {
         log.debug("Deleting vendor: {}", vendorName);
@@ -148,6 +162,28 @@ public class VendorController {
         return ResponseEntity.ok(response);
     }
 
+    //Get vendor details by email
+    @GetMapping("/details/{email}")
+    public ResponseEntity<Map<String, Object>> getVendorDetailsByEmail(@PathVariable String email) {
+        log.debug("Retrieving vendor details for email: {}", email);
+        Optional<Vendor> vendorOptional = vendorService.findVendorByEmail(email);
+
+        if (vendorOptional.isEmpty()) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "No vendor found with email: " + email);
+            return ResponseEntity.notFound().build();
+        }
+
+        Vendor vendor = vendorOptional.get();
+        Map<String, Object> response = new HashMap<>();
+        response.put("vendor", vendor);
+
+        // You might want to add additional sales statistics calculation here
+        log.info("Successfully retrieved vendor details for email: {}", email);
+        return ResponseEntity.ok(response);
+    }
+
+    //Get vendor details by ID
     private void validateVendorInput(Vendor vendor) {
         if (vendor == null) {
             throw new IllegalArgumentException("Vendor data cannot be null");

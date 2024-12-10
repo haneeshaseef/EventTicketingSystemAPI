@@ -60,7 +60,7 @@ public class Vendor extends Participant{
         while (isActive) {
             try {
                 if (!ticketPoolService.isConfigured()) {
-                    log.warn("Vendor {} waiting - no active event configuration found. Will retry in {} s.",
+                    log.warn("Vendor {} waiting - no active event configuration found. Will retry in {} s.Please configure the event first",
                             getName(), ticketReleaseInterval);
                     Thread.sleep(ticketReleaseInterval * MILLISECONDS_IN_SECOND);
                     continue;

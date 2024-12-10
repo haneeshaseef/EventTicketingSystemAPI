@@ -41,6 +41,7 @@ public class CustomerController {
         return ResponseEntity.ok(response);
     }
 
+    //Get active customers
     @GetMapping("/active")
     public ResponseEntity<Map<String, Object>> getActiveCustomers() {
         log.debug("Retrieving active customers");
@@ -54,6 +55,7 @@ public class CustomerController {
         return ResponseEntity.ok(response);
     }
 
+    //Register new customer
     @PostMapping
     public ResponseEntity<Map<String, Object>> registerCustomer(@RequestBody Customer customer) {
         validateCustomerInput(customer);
@@ -69,11 +71,15 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    // deactivate customer by name
     @PutMapping("/{customerName}/deactivate")
     public ResponseEntity<Map<String, Object>> deactivateCustomer(@PathVariable String customerName) {
         log.debug("Deactivating customer: {}", customerName);
-        Customer customer = customerService.getCustomerById(customerName);
-        customerService.deactivateCustomer(customerName);
+        Optional<Customer> customerOptional = customerService.findCustomerByName(customerName);
+
+        Customer customer = customerOptional.get();
+
+        customerService.deactivateCustomer(customer.getParticipantId());
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Customer successfully deactivated");
@@ -88,8 +94,15 @@ public class CustomerController {
     @PutMapping("/{customerName}/reactivate")
     public ResponseEntity<Map<String, Object>> reactivateCustomer(@PathVariable String customerName) {
         log.debug("Reactivating customer: {}", customerName);
-        Customer customer = customerService.getCustomerById(customerName);
-        customerService.reactivateCustomer(customerName);
+
+        Optional<Customer> customerOptional = customerService.findCustomerByName(customerName);
+        if (customerOptional.isEmpty()) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "No customer found with name: " + customerName);
+            return ResponseEntity.notFound().build();
+        }
+        Customer customer = customerOptional.get();
+        customerService.reactivateCustomer(customer.getParticipantId());
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Customer successfully reactivated");
@@ -114,6 +127,7 @@ public class CustomerController {
         return ResponseEntity.ok(response);
     }
 
+    //get customer by ID
     @GetMapping("/{customerId}")
     public ResponseEntity<Map<String, Object>> getCustomerById(@PathVariable String customerId) {
         log.debug("Retrieving customer by ID: {}", customerId);
@@ -128,6 +142,7 @@ public class CustomerController {
         return ResponseEntity.ok(response);
     }
 
+    //get customer by name
     @GetMapping("/name/{name}")
     public ResponseEntity<Map<String, Object>> getCustomerByName(@PathVariable String name) {
         log.debug("Retrieving customer by name: {}", name);
@@ -149,6 +164,7 @@ public class CustomerController {
         return ResponseEntity.ok(response);
     }
 
+    //delete customer by ID
     @DeleteMapping("/{customerId}")
     public ResponseEntity<Map<String, Object>> deleteCustomer(@PathVariable String customerId) {
         log.debug("Deleting customer: {}", customerId);
@@ -165,6 +181,27 @@ public class CustomerController {
         return ResponseEntity.ok(response);
     }
 
+    //get customer details by email
+    @GetMapping("/details/{email}")
+    public ResponseEntity<Map<String, Object>> getCustomerDetailsByEmail(@PathVariable String email) {
+        log.debug("Retrieving customer details for email: {}", email);
+        Optional<Customer> customerOptional = customerService.findCustomerByEmail(email);
+
+        if (customerOptional.isEmpty()) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "No customer found with email: " + email);
+            return ResponseEntity.notFound().build();
+        }
+
+        Customer customer = customerOptional.get();
+        Map<String, Object> response = new HashMap<>();
+        response.put("customer", customer);
+
+        log.info("Successfully retrieved customer details for email: {}", email);
+        return ResponseEntity.ok(response);
+    }
+
+    //validate customer input
     private void validateCustomerInput(Customer customer) {
         if (customer == null) {
             throw new IllegalArgumentException("Customer data cannot be null");

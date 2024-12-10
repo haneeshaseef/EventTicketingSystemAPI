@@ -13,10 +13,4 @@ public interface VendorRepository extends MongoRepository<Vendor, String> {
     Optional<Vendor> findByEmailIgnoreCase(String email);
     Optional<Vendor> findByNameIgnoreCase(String name);
     List<Vendor> findByIsActive(boolean isActive);
-    boolean existsByEmailIgnoreCase(String email);
-    boolean existsByNameIgnoreCase(String name);
-
-    // New method to support efficient vendor ticket allocation
-    @Query("{ 'isActive': true }")
-    List<Vendor> findByIsActiveOrderByAvailableTicketsDesc();
 }

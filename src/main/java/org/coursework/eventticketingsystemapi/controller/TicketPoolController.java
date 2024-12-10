@@ -48,6 +48,7 @@ public class TicketPoolController {
         return ResponseEntity.ok(configuration);
     }
 
+    // Create new configuration
     @PostMapping("/configuration")
     public ResponseEntity<EventConfiguration> createConfiguration(@RequestBody EventConfiguration configuration) {
         log.info("Request received to create new event configuration");
@@ -58,6 +59,7 @@ public class TicketPoolController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedConfig);
     }
 
+    // Update configuration
     @PutMapping("/configuration")
     public ResponseEntity<EventConfiguration> updateConfiguration(@RequestBody EventConfiguration configuration) {
         log.info("Request received to update event configuration");
@@ -68,6 +70,7 @@ public class TicketPoolController {
         return ResponseEntity.ok(updatedConfig);
     }
 
+    //Get ticket pool status
     @GetMapping("/status")
     public ResponseEntity<Map<String, Object>> getPoolStatus() {
         Map<String, Object> status = new HashMap<>();
@@ -125,21 +128,5 @@ public class TicketPoolController {
     public ResponseEntity<Ticket> getTicketById(@PathVariable String ticketId) {
         Ticket ticket = ticketService.getTicketById(ticketId);
         return ResponseEntity.ok(ticket);
-    }
-
-    private Map<String, Long> getVendorTicketDistribution(List<Ticket> tickets) {
-        return tickets.stream()
-                .collect(Collectors.groupingBy(
-                        ticket -> ticket.getVendor().getName(),
-                        Collectors.counting()
-                ));
-    }
-
-    private Map<String, Long> getCustomerTicketDistribution(List<Ticket> tickets) {
-        return tickets.stream()
-                .collect(Collectors.groupingBy(
-                        ticket -> ticket.getCustomer().getName(),
-                        Collectors.counting()
-                ));
     }
 }

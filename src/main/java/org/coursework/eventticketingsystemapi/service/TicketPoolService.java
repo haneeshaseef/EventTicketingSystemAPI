@@ -53,6 +53,9 @@ public class TicketPoolService {
         this.availableTickets = new AtomicInteger(0);
     }
 
+    /**
+     * Load event configuration on service initialization
+     */
     @PostConstruct
     private void loadConfiguration() {
         lock.lock();
@@ -73,6 +76,9 @@ public class TicketPoolService {
         }
     }
 
+    /**
+     * Load existing vendors and customers with available tickets
+     */
     private void loadExistingParticipants() {
         lock.lock();
         try {
@@ -116,6 +122,9 @@ public class TicketPoolService {
         }
     }
 
+    /**
+     * Synchronize available tickets count with vendor and customer counts
+     */
     public void synchronizeAvailableTickets() {
         lock.lock();
         try {
@@ -160,6 +169,11 @@ public class TicketPoolService {
         }
     }
 
+    /**
+     * Configure the event with the provided configuration
+     *
+     * @param config Event configuration to apply
+     */
     public void configureEvent(EventConfiguration config) {
         if (config == null) {
             log.error("Cannot configure null event");
@@ -191,10 +205,21 @@ public class TicketPoolService {
         }
     }
 
+    /**
+     * Check if the system is configured with an active event
+     *
+     * @return True if the system is configured with an active event
+     */
     private boolean isValidConfiguration(EventConfiguration config) {
         return config.getTotalTickets() >= 0 && config.getMaxCapacity() > 0 && config.getTicketReleaseRate() > 0 && config.getCustomerRetrievalRate() > 0 && config.getEventName() != null && !config.getEventName().trim().isEmpty();
     }
 
+    /**
+     * Release tickets for a vendor
+     *
+     * @param vendor Vendor to release tickets for
+     * @param count  Number of tickets to release
+     */
     public void addTickets(Vendor vendor, int count) {
         if (!isConfigured || count <= 0 || vendor == null) {
             log.error("Cannot release tickets: Invalid state, count, or vendor");
@@ -213,6 +238,7 @@ public class TicketPoolService {
             int totalAfterRelease = currentSold + currentAvailable + count;
 
             if (totalAfterRelease > updatedVendor.getTicketsToSell()) {
+                vendor.stopVendor();
                 throw new InvalidResourceOperationException(
                         String.format("Cannot release %d tickets: would exceed vendor's maximum of %d",
                                 count, updatedVendor.getTicketsToSell()));
@@ -258,6 +284,13 @@ public class TicketPoolService {
         }
     }
 
+    /**
+     * Purchase tickets for a customer
+     *
+     * @param customer Customer to purchase tickets for
+     * @param count    Number of tickets to purchase
+     * @return Number of tickets actually purchased
+     */
     public int purchaseTickets(Customer customer, int count) {
         if (!isConfigured || customer == null || count <= 0) {
             log.error("Cannot process purchase: system not configured, invalid customer, or invalid count");
@@ -368,6 +401,12 @@ public class TicketPoolService {
         }
     }
 
+    /**
+     * Update the ticket count for a vendor
+     *
+     * @param vendor       Vendor to update ticket count for
+     * @param addedTickets Number of tickets to add
+     */
     public void updateVendorTicketCount(Vendor vendor, int addedTickets) {
         lock.lock();
         try {
@@ -382,12 +421,20 @@ public class TicketPoolService {
         }
     }
 
+    /**
+     * get the available tickets count
+     * @param vendorId
+     * @return
+     */
     private int getVendorAvailableTickets(String vendorId) {
         if (vendorId == null) return 0;
         AtomicInteger count = vendorCurrentAvailableCounts.get(vendorId);
         return count != null ? count.get() : 0;
     }
 
+    /**
+     * Shutdown hook to update vendor and customer states before application shutdown
+     */
     @PreDestroy
     public void shutdown() {
         lock.lock();

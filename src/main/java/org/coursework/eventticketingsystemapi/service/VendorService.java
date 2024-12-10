@@ -222,19 +222,18 @@ public class VendorService {
     /**
      * Reactivates a vendor by starting their thread and updating their status.
      *
-     * @param vendorName Name of the vendor to reactivate
+     * @param vendorId Name of the vendor to reactivate
      * @throws IllegalArgumentException If vendor is not found
      */
-    public void reactivateVendor(String vendorName) {
-        log.debug("Reactivating vendor: {}", vendorName);
-        Vendor vendor = findVendorByName(vendorName)
-                .orElseThrow(() -> new IllegalArgumentException("Vendor not found with name: " + vendorName));
-        vendor.startVendor();
+    public void reactivateVendor(String vendorId) {
+        log.debug("Reactivating vendor: {}", vendorId);
+        Vendor vendor = getVendorById(vendorId);
         vendor.setActive(true);
         vendorRepository.save(vendor);
+        vendor.setTicketPoolService(ticketPoolService);
         activeVendors.put(vendor.getParticipantId(), vendor);
-
-        log.info("Successfully reactivated vendor: {}", vendorName);
+        startVendorThread(vendor);
+        log.info("Successfully reactivated vendor: {}", vendorId);
     }
 
     /**
@@ -305,7 +304,15 @@ public class VendorService {
         }
     }
 
-    // update vendor by name
+    /**
+     * Updates the details of a vendor.
+     *
+     * @param vendorName Name of the vendor to update
+     * @param vendor Updated vendor details
+     * @return Updated vendor
+     * @throws ResourceProcessingException If update fails
+     * @throws IllegalArgumentException If vendor is not found
+     */
     public Vendor updateVendor(String vendorName, Vendor vendor) {
         try {
             log.debug("Updating vendor: {}", vendorName);
@@ -323,6 +330,5 @@ public class VendorService {
             throw new ResourceProcessingException("Failed to update vendor");
         }
     }
-
 
 }

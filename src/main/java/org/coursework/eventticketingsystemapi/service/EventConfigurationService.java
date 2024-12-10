@@ -26,6 +26,11 @@ public class EventConfigurationService {
         this.objectMapper.registerModule(new JavaTimeModule());
     }
 
+    /**
+     * Load event configuration from file
+     *
+     * @return EventConfiguration object
+     */
     public EventConfiguration getEventConfiguration() {
         log.debug("Loading event configuration");
         try {
@@ -42,6 +47,11 @@ public class EventConfigurationService {
         }
     }
 
+    /**
+     * Load event configuration from file
+     *
+     * @return EventConfiguration object
+     */
     private EventConfiguration loadConfiguration() throws IOException {
         Path path = Paths.get(CONFIGURATION_FILE);
         File file = path.toFile();
@@ -53,6 +63,11 @@ public class EventConfigurationService {
         return objectMapper.readValue(file, EventConfiguration.class);
     }
 
+    /**
+     * Validate the configuration object
+     *
+     * @param configuration EventConfiguration object
+     */
     private void validateConfiguration(EventConfiguration configuration) {
         List<String> errors = validateConfigurationRules(configuration);
 
@@ -63,6 +78,12 @@ public class EventConfigurationService {
         }
     }
 
+    /**
+     * Validate the configuration object
+     *
+     * @param configuration EventConfiguration object
+     * @return List of error messages
+     */
     private List<String> validateConfigurationRules(EventConfiguration configuration) {
         List<String> errors = new ArrayList<>();
 
@@ -87,6 +108,12 @@ public class EventConfigurationService {
         return errors;
     }
 
+    /**
+     * Save the configuration object to file
+     *
+     * @param configuration EventConfiguration object
+     * @return EventConfiguration object
+     */
     public EventConfiguration saveConfiguration(EventConfiguration configuration) {
         try {
             validateConfiguration(configuration);

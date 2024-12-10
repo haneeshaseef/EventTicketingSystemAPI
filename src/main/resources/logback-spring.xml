@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Console output -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}  %highlight(%5level) %magenta(${PID:- }) --- [%15.15thread] %cyan(%-40.40logger{39}) : %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- File output -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/application.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/application.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [34mINFO[0;39m [36m%logger[0;39m - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- Log levels -->
+    <logger name="org.coursework.eventticketingsystemapi.service" level="DEBUG">
+        <appender-ref ref="FILE"/>
+    </logger>
+    <logger name="org.coursework.eventticketingsystemapi.controller" level="DEBUG">
+        <appender-ref ref="FILE"/>
+    </logger>
+    <logger name="org.coursework.eventticketingsystemapi.repository" level="DEBUG">
+        <appender-ref ref="FILE"/>
+
+    </logger>
+    <logger name="org.coursework.eventticketingsystemapi.model" level="DEBUG">
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <!-- Root logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

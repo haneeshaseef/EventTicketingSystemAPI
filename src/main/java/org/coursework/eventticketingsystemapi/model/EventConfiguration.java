@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class EventConfiguration {
-    private static final Logger log = LoggerFactory.getLogger(EventConfiguration.class);
-
     private String eventName;
     private LocalDateTime eventDate;
     private int totalTickets;

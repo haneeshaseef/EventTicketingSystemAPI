@@ -1,0 +1,255 @@
+2024-12-10 08:08:02.338 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded vendor test1 with 40 available tickets and 0 sold tickets
+2024-12-10 08:08:02.375 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded customer testc1 with 0 remaining tickets to purchase
+2024-12-10 08:08:02.611 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Event configured successfully with 40 total tickets and 1 active vendors
+2024-12-10 08:08:47.761 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Logging in admin: admin
+2024-12-10 08:08:47.808 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Admin admin logged in successfully
+2024-12-10 08:08:47.808 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.controller.AuthController[0;39m - Successfully logged in admin: admin
+2024-12-10 08:08:48.169 [http-nio-8080-exec-4] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:09:11.624 [http-nio-8080-exec-2] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:09:14.240 [http-nio-8080-exec-10] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:11:13.852 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:12:02.996 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Updated vendor test1 - Sold: 0, Available: 40, Running: true
+2024-12-10 08:12:03.039 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Customer testc1 - Remaining tickets: 0
+2024-12-10 08:12:03.117 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:12:03.117 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Synchronized ticket counts - Total available: 40
+2024-12-10 08:12:03.118 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:12:03.118 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown completed successfully. Final available tickets: 40
+2024-12-10 08:12:22.783 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded vendor test1 with 40 available tickets and 0 sold tickets
+2024-12-10 08:12:22.812 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded customer testc1 with 0 remaining tickets to purchase
+2024-12-10 08:12:23.118 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Event configured successfully with 40 total tickets and 1 active vendors
+2024-12-10 08:13:36.459 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Updated vendor test1 - Sold: 0, Available: 40, Running: true
+2024-12-10 08:13:36.472 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Customer testc1 - Remaining tickets: 0
+2024-12-10 08:13:36.495 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:13:36.496 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Synchronized ticket counts - Total available: 40
+2024-12-10 08:13:36.498 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:13:36.498 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown completed successfully. Final available tickets: 40
+2024-12-10 08:20:31.128 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded vendor test1 with 40 available tickets and 0 sold tickets
+2024-12-10 08:20:31.142 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded customer testc1 with 0 remaining tickets to purchase
+2024-12-10 08:20:31.185 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Event configured successfully with 40 total tickets and 1 active vendors
+2024-12-10 08:22:22.349 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Logging in admin: admin
+2024-12-10 08:22:22.352 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Admin admin logged in successfully
+2024-12-10 08:22:22.352 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.controller.AuthController[0;39m - Successfully logged in admin: admin
+2024-12-10 08:22:22.439 [http-nio-8080-exec-4] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:23:00.266 [http-nio-8080-exec-6] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:23:31.085 [http-nio-8080-exec-10] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:23:31.690 [http-nio-8080-exec-2] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:23:32.622 [http-nio-8080-exec-6] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:23:34.624 [http-nio-8080-exec-9] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:23:40.527 [http-nio-8080-exec-4] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:23:42.395 [http-nio-8080-exec-10] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:24:30.134 [http-nio-8080-exec-5] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:26:56.424 [http-nio-8080-exec-4] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:27:08.847 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:29:00.514 [http-nio-8080-exec-4] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:36:22.099 [http-nio-8080-exec-3] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:36:47.403 [http-nio-8080-exec-5] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:38:03.163 [http-nio-8080-exec-3] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:38:16.529 [http-nio-8080-exec-5] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Logging in admin: admin
+2024-12-10 08:38:16.564 [http-nio-8080-exec-5] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Invalid admin credentials for username: admin
+2024-12-10 08:38:16.571 [http-nio-8080-exec-5] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Error logging in admin: admin
+org.coursework.eventticketingsystemapi.exception.ResourceProcessingException: Invalid admin credentials
+	at org.coursework.eventticketingsystemapi.service.AuthService.loginAdmin(AuthService.java:212)
+	at org.coursework.eventticketingsystemapi.controller.AuthController.loginAdmin(AuthController.java:120)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:113)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+2024-12-10 08:38:16.809 [http-nio-8080-exec-6] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:38:47.262 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Updated vendor test1 - Sold: 0, Available: 40, Running: true
+2024-12-10 08:38:47.277 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Customer testc1 - Remaining tickets: 0
+2024-12-10 08:38:47.301 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:38:47.301 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Synchronized ticket counts - Total available: 40
+2024-12-10 08:38:47.302 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:38:47.302 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown completed successfully. Final available tickets: 40
+2024-12-10 08:38:59.835 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded vendor test1 with 40 available tickets and 0 sold tickets
+2024-12-10 08:38:59.864 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded customer testc1 with 0 remaining tickets to purchase
+2024-12-10 08:39:00.169 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Event configured successfully with 40 total tickets and 1 active vendors
+2024-12-10 08:39:40.899 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Logging in admin: admin
+2024-12-10 08:39:40.904 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Admin admin logged in successfully
+2024-12-10 08:39:40.904 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.controller.AuthController[0;39m - Successfully logged in admin: admin
+2024-12-10 08:39:41.072 [http-nio-8080-exec-4] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:40:40.612 [http-nio-8080-exec-3] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Logging in admin: admin
+2024-12-10 08:40:40.615 [http-nio-8080-exec-3] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Admin admin logged in successfully
+2024-12-10 08:40:40.615 [http-nio-8080-exec-3] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.controller.AuthController[0;39m - Successfully logged in admin: admin
+2024-12-10 08:41:15.938 [http-nio-8080-exec-6] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:42:29.598 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - No running vendors found, setting available tickets to 0
+2024-12-10 08:42:29.601 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:42:29.601 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Synchronized ticket counts - Total available: 0
+2024-12-10 08:42:29.602 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:42:29.602 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown completed successfully. Final available tickets: 0
+2024-12-10 08:42:39.606 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - No running vendors found, setting available tickets to 0
+2024-12-10 08:42:39.606 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Event configured successfully with 0 total tickets and 0 active vendors
+2024-12-10 08:42:59.978 [http-nio-8080-exec-4] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:43:19.449 [http-nio-8080-exec-4] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:45:14.336 [http-nio-8080-exec-2] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.VendorService[0;39m - Attempting to register vendor: test
+2024-12-10 08:45:19.384 [http-nio-8080-exec-2] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test initialized for ticket sales
+2024-12-10 08:45:19.384 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test started ticket release process
+2024-12-10 08:45:19.384 [http-nio-8080-exec-2] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.VendorService[0;39m - Vendor 6757b2472edca91e9a3d5157 thread started successfully
+2024-12-10 08:45:19.384 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test attempting to add 10 tickets
+2024-12-10 08:45:19.384 [http-nio-8080-exec-2] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.controller.VendorController[0;39m - Successfully registered vendor: test
+2024-12-10 08:45:19.384 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test started ticket release process
+2024-12-10 08:45:19.384 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test attempting to add 10 tickets
+2024-12-10 08:45:19.446 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:45:19.446 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Successfully released 10 tickets for vendor test. Total released: 10
+2024-12-10 08:45:19.446 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test successfully added 10 tickets, new total=10, remaining capacity=90
+2024-12-10 08:45:19.457 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:45:19.458 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Successfully released 10 tickets for vendor test. Total released: 20
+2024-12-10 08:45:19.458 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test successfully added 10 tickets, new total=20, remaining capacity=90
+2024-12-10 08:45:49.459 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test attempting to add 10 tickets
+2024-12-10 08:45:49.459 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test attempting to add 10 tickets
+2024-12-10 08:45:49.468 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:45:49.468 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Successfully released 10 tickets for vendor test. Total released: 30
+2024-12-10 08:45:49.468 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test successfully added 10 tickets, new total=30, remaining capacity=70
+2024-12-10 08:45:49.474 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:45:49.474 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Successfully released 10 tickets for vendor test. Total released: 40
+2024-12-10 08:45:49.474 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test successfully added 10 tickets, new total=40, remaining capacity=70
+2024-12-10 08:46:02.456 [http-nio-8080-exec-6] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:46:19.477 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test attempting to add 10 tickets
+2024-12-10 08:46:19.480 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test attempting to add 10 tickets
+2024-12-10 08:46:19.491 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:46:19.493 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Successfully released 10 tickets for vendor test. Total released: 50
+2024-12-10 08:46:19.493 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test successfully added 10 tickets, new total=50, remaining capacity=50
+2024-12-10 08:46:19.497 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test stopped. Sales summary: totalSold=50, targetAmount=50, completionRate=100%
+2024-12-10 08:46:19.498 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test thread interrupted during ticket release process
+2024-12-10 08:46:19.498 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test stopped. Sales summary: totalSold=50, targetAmount=50, completionRate=100%
+2024-12-10 08:46:19.504 [Vendor-test] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test completed ticket release process. Final statistics: addedTickets=50, target=50, completion=100%
+2024-12-10 08:46:19.501 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test encountered an error during ticket release: Cannot release 10 tickets: would exceed vendor's maximum of 50
+org.coursework.eventticketingsystemapi.exception.InvalidResourceOperationException: Cannot release 10 tickets: would exceed vendor's maximum of 50
+	at org.coursework.eventticketingsystemapi.service.TicketPoolService.addTickets(TicketPoolService.java:219)
+	at org.coursework.eventticketingsystemapi.model.Vendor.run(Vendor.java:84)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+2024-12-10 08:46:20.533 [Vendor-6757b2472edca91e9a3d5157] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Vendor[0;39m - Vendor test completed ticket release process. Final statistics: addedTickets=50, target=50, completion=100%
+2024-12-10 08:47:28.859 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.CustomerService[0;39m - Attempting to register customer: cusomter
+2024-12-10 08:47:28.884 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter initialized for ticket purchases
+2024-12-10 08:47:28.885 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter started ticket purchasing process
+2024-12-10 08:47:28.885 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter attempting to purchase 2 tickets
+2024-12-10 08:47:28.885 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.CustomerService[0;39m - Customer 6757b2c82edca91e9a3d5158 thread started successfully
+2024-12-10 08:47:28.885 [http-nio-8080-exec-1] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.controller.CustomerController[0;39m - Successfully registered customer: cusomter
+2024-12-10 08:47:28.885 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter started ticket purchasing process
+2024-12-10 08:47:28.885 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter attempting to purchase 2 tickets
+2024-12-10 08:47:28.919 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Batch saving 2 tickets
+2024-12-10 08:47:28.978 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:47:28.979 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Batch ticket purchase successful - Customer: cusomter (2/10), Count: 2, Total Available: 48
+2024-12-10 08:47:28.979 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter purchased 2 tickets. Total: 2/10
+2024-12-10 08:47:28.984 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Batch saving 2 tickets
+2024-12-10 08:47:28.991 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:47:28.991 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Batch ticket purchase successful - Customer: cusomter (4/10), Count: 2, Total Available: 46
+2024-12-10 08:47:28.991 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter purchased 2 tickets. Total: 4/10
+2024-12-10 08:47:58.990 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter attempting to purchase 2 tickets
+2024-12-10 08:47:59.002 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Batch saving 2 tickets
+2024-12-10 08:47:59.006 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter attempting to purchase 2 tickets
+2024-12-10 08:47:59.017 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:47:59.017 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Batch ticket purchase successful - Customer: cusomter (6/10), Count: 2, Total Available: 44
+2024-12-10 08:47:59.018 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter purchased 2 tickets. Total: 6/10
+2024-12-10 08:47:59.026 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Batch saving 2 tickets
+2024-12-10 08:47:59.039 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:47:59.040 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Batch ticket purchase successful - Customer: cusomter (8/10), Count: 2, Total Available: 42
+2024-12-10 08:47:59.040 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter purchased 2 tickets. Total: 8/10
+2024-12-10 08:47:59.256 [http-nio-8080-exec-6] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:48:29.025 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter attempting to purchase 2 tickets
+2024-12-10 08:48:29.036 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Batch saving 2 tickets
+2024-12-10 08:48:29.041 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter attempting to purchase 2 tickets
+2024-12-10 08:48:29.050 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:48:29.050 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Batch ticket purchase successful - Customer: cusomter (10/10), Count: 2, Total Available: 40
+2024-12-10 08:48:29.051 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter purchased 2 tickets. Total: 10/10
+2024-12-10 08:48:29.051 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter automatically stopped - reached max tickets to purchase: 10
+2024-12-10 08:48:29.051 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter stopped. Purchase summary: totalPurchased=10, targetAmount=10, completionRate=100%
+2024-12-10 08:48:29.051 [Customer-cusomter] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter completed purchase process. Final statistics: purchasedTickets=10, targetAmount=10, completionRate=100%
+2024-12-10 08:48:29.054 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter purchase attempt failed: Cannot purchase tickets, customer has reached their limit
+2024-12-10 08:48:29.054 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter stopped. Purchase summary: totalPurchased=10, targetAmount=10, completionRate=100%
+2024-12-10 08:48:29.055 [Customer-6757b2c82edca91e9a3d5158] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.model.Customer[0;39m - Customer cusomter completed purchase process. Final statistics: purchasedTickets=10, targetAmount=10, completionRate=100%
+2024-12-10 08:48:44.286 [http-nio-8080-exec-3] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:48:47.958 [http-nio-8080-exec-8] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:48:50.604 [http-nio-8080-exec-3] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:48:56.904 [http-nio-8080-exec-6] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:49:10.591 [http-nio-8080-exec-4] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:52:21.958 [http-nio-8080-exec-7] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:52:33.756 [http-nio-8080-exec-3] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 08:53:05.769 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Updated vendor test - Sold: 10, Available: 40, Running: true
+2024-12-10 08:53:05.789 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:53:05.789 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Synchronized ticket counts - Total available: 40
+2024-12-10 08:53:05.791 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 08:53:05.791 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown completed successfully. Final available tickets: 40
+2024-12-10 09:51:04.607 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded vendor test with 40 available tickets and 10 sold tickets
+2024-12-10 09:51:04.617 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded customer cusomter with 0 remaining tickets to purchase
+2024-12-10 09:51:04.651 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Event configured successfully with 40 total tickets and 1 active vendors
+2024-12-10 09:53:48.379 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Updated vendor test - Sold: 10, Available: 40, Running: true
+2024-12-10 09:53:48.386 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Customer cusomter - Remaining tickets: 0
+2024-12-10 09:53:48.403 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 09:53:48.403 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Synchronized ticket counts - Total available: 40
+2024-12-10 09:53:48.404 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 09:53:48.404 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown completed successfully. Final available tickets: 40
+2024-12-10 09:58:05.934 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded vendor test with 40 available tickets and 10 sold tickets
+2024-12-10 09:58:05.944 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded customer cusomter with 0 remaining tickets to purchase
+2024-12-10 09:58:05.980 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Event configured successfully with 40 total tickets and 1 active vendors
+2024-12-10 10:06:40.031 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Updated vendor test - Sold: 10, Available: 40, Running: true
+2024-12-10 10:06:40.046 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Customer cusomter - Remaining tickets: 0
+2024-12-10 10:06:40.130 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 10:06:40.130 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Synchronized ticket counts - Total available: 40
+2024-12-10 10:06:40.130 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 10:06:40.130 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown completed successfully. Final available tickets: 40
+2024-12-10 11:04:21.024 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded vendor test with 40 available tickets and 10 sold tickets
+2024-12-10 11:04:21.033 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded customer cusomter with 0 remaining tickets to purchase
+2024-12-10 11:04:21.061 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Event configured successfully with 40 total tickets and 1 active vendors
+2024-12-10 11:06:50.489 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Updated vendor test - Sold: 10, Available: 40, Running: true
+2024-12-10 11:06:50.494 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Customer cusomter - Remaining tickets: 0
+2024-12-10 11:06:50.509 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 11:06:50.509 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Synchronized ticket counts - Total available: 40
+2024-12-10 11:06:50.510 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 11:06:50.510 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown completed successfully. Final available tickets: 40
+2024-12-10 11:07:14.910 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded vendor test with 40 available tickets and 10 sold tickets
+2024-12-10 11:07:14.919 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Loaded customer cusomter with 0 remaining tickets to purchase
+2024-12-10 11:07:14.948 [main] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Event configured successfully with 40 total tickets and 1 active vendors
+2024-12-10 11:09:23.075 [http-nio-8080-exec-9] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Logging in admin: admin
+2024-12-10 11:09:23.086 [http-nio-8080-exec-9] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Admin admin logged in successfully
+2024-12-10 11:09:23.087 [http-nio-8080-exec-9] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.controller.AuthController[0;39m - Successfully logged in admin: admin
+2024-12-10 11:09:23.152 [http-nio-8080-exec-5] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketService[0;39m - Retrieving all active tickets
+2024-12-10 11:09:37.370 [http-nio-8080-exec-3] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Logging out admin: admin
+2024-12-10 11:09:37.370 [http-nio-8080-exec-3] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.AuthService[0;39m - Admin admin logged out successfully
+2024-12-10 11:09:37.370 [http-nio-8080-exec-3] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.controller.AuthController[0;39m - Successfully logged out admin: admin
+2024-12-10 11:09:45.854 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Updated vendor test - Sold: 10, Available: 40, Running: true
+2024-12-10 11:09:45.858 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown: Customer cusomter - Remaining tickets: 0
+2024-12-10 11:09:45.870 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 11:09:45.871 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Synchronized ticket counts - Total available: 40
+2024-12-10 11:09:45.871 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.EventConfigurationService[0;39m - Configuration saved to: C:\Users\ahmha\OneDrive\Desktop\OOP CW\EventTicketingSystemAPI\event-configuration.json
+2024-12-10 11:09:45.871 [SpringApplicationShutdownHook] [34mINFO[0;39m [36morg.coursework.eventticketingsystemapi.service.TicketPoolService[0;39m - Shutdown completed successfully. Final available tickets: 40

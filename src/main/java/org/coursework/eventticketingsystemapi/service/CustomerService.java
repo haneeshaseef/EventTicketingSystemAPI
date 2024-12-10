@@ -178,6 +178,11 @@ public class CustomerService {
         return savedCustomer;
     }
 
+    /**
+     * Initializes the customer services for the specified customer.
+     *
+     * @param customer the customer to initialize services for
+     */
     private void initializeCustomerServices(Customer customer) {
         customer.setTicketPoolService(ticketPoolService);
     }
@@ -204,23 +209,23 @@ public class CustomerService {
     /**
      * Reactivates the customer with the specified name.
      *
-     * @param customerName the name of the customer to reactivate
+     * @param customerId the name of the customer to reactivate
      * @throws ResourceNotFoundException   if the customer is not found
      * @throws ResourceProcessingException if there is an error reactivating the customer
      */
-    public void reactivateCustomer(String customerName) {
+    public void reactivateCustomer(String customerId) {
         try {
-            log.info("Reactivating customer: {}", customerName);
-            Customer customer = findCustomerByName(customerName)
-                    .orElseThrow(() -> new ResourceNotFoundException("Customer not found with name: " + customerName));
-            customer.startCustomer();
+            log.info("Reactivating customer: {}", customerId);
+            Customer customer = getCustomerById(customerId);
+
             customer.setActive(true);
             customerRepository.save(customer);
             activeCustomers.put(customer.getParticipantId(), customer);
+            customer.setTicketPoolService(ticketPoolService);
             startCustomerThread(customer);
-            log.info("Customer {} successfully reactivated", customerName);
+            log.info("Customer {} successfully reactivated", customerId);
         } catch (Exception e) {
-            log.error("Error reactivating customer {}: {}", customerName, e.getMessage(), e);
+            log.error("Error reactivating customer {}: {}", customerId, e.getMessage(), e);
             throw new ResourceProcessingException("Failed to reactivate customer");
         }
     }
@@ -228,24 +233,24 @@ public class CustomerService {
     /**
      * Deactivates the customer with the specified name.
      *
-     * @param customerName the name of the customer to deactivate
+     * @param customerId the name of the customer to deactivate
      * @throws ResourceProcessingException if there is an error deactivating the customer
      */
-    public void deactivateCustomer(String customerName) {
+    public void deactivateCustomer(String customerId) {
         try {
-            log.info("Deactivating customer: {}", customerName);
-            Customer customer = getCustomerById(customerName);
+            log.info("Deactivating customer: {}", customerId);
+            Customer customer = getCustomerById(customerId);
 
             customer.stopCustomer();
             customer.setActive(false);
 
             customerRepository.save(customer);
-            activeCustomers.remove(customerName);
+            activeCustomers.remove(customerId);
 
             log.info("Customer {} successfully deactivated. Final tickets purchased: {}",
-                    customerName, customer.getTotalTicketsPurchased());
+                    customerId, customer.getTotalTicketsPurchased());
         } catch (Exception e) {
-            log.error("Error deactivating customer {}: {}", customerName, e.getMessage(), e);
+            log.error("Error deactivating customer {}: {}", customerId, e.getMessage(), e);
             throw new ResourceProcessingException("Failed to deactivate customer");
         }
     }

@@ -25,6 +25,7 @@ public class Ticket {
     private Customer customer;
 
     private LocalDateTime createdAt;
+
     private LocalDateTime purchasedAt;
 
     public Ticket(Vendor vendor,Customer customer) {

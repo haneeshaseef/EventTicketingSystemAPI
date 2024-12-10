@@ -119,7 +119,7 @@ public class Customer extends Participant {
                     }
                 } else {
                     if (currentAvailable == 0) {
-                        log.warn("Customer {} waiting - no tickets currently available for purchase. Will retry in {} s.",
+                        log.warn("Customer {} waiting - no tickets currently available for purchase. Will retry in {} s. Please configure the event first",
                                 getName(), ticketRetrievalInterval);
                     } else {
                         log.debug("Customer {} waiting - target already reached or no more tickets to purchase", getName());

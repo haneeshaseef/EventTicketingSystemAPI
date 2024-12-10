@@ -3,12 +3,13 @@ package org.coursework.eventticketingsystemapi.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 
+@Slf4j
 @Data
 @NoArgsConstructor
-
 public abstract class Participant implements Runnable {
     @Id
     protected String participantId;
@@ -34,7 +35,7 @@ public abstract class Participant implements Runnable {
             participantThread = new Thread(this, getClass().getSimpleName() + "-" + name);
             participantThread.start();
         } else {
-            System.out.println(getClass().getSimpleName() + " " + name + " is already running.");
+            log.info("Participant {} is already running", name);
         }
     }
 
