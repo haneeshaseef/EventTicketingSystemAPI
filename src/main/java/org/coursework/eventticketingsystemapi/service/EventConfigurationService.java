@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,9 +117,15 @@ public class EventConfigurationService {
      */
     public EventConfiguration saveConfiguration(EventConfiguration configuration) {
         try {
+            if (configuration.getEventDate() == null) {
+                configuration.setEventDate(LocalDateTime.now());
+            }
+
             validateConfiguration(configuration);
+
             Path path = Paths.get(CONFIGURATION_FILE);
             objectMapper.writeValue(path.toFile(), configuration);
+
             log.info("Configuration saved to: {}", path.toAbsolutePath());
             return configuration;
         } catch (IOException e) {

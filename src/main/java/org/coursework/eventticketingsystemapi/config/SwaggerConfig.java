@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 
+//Ref: https://www.baeldung.com/spring-rest-openapi-documentation
 @Configuration
 public class SwaggerConfig {
     @Bean
