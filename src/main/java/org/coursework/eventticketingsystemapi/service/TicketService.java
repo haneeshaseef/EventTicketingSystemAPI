@@ -69,20 +69,20 @@ public class TicketService {
     /**
      * Retrieves a list of tickets for the specified vendor.
      *
-     * @param vendorName the ID of the vendor
+     * @param vendorId the ID of the vendor
      * @return a list of tickets for the vendor
      * @throws ResourceProcessingException if there is an error retrieving the tickets
      */
-    public List<Ticket> getTicketsByVendor(String vendorName) {
+    public List<Ticket> getTicketsByVendor(String vendorId) {
         try {
-            if (vendorName == null || vendorName.trim().isEmpty()) {
-                throw new IllegalArgumentException("Vendor name cannot be null or empty");
+            if (vendorId == null || vendorId.trim().isEmpty()) {
+                throw new IllegalArgumentException("Vendor ID cannot be null or empty");
             }
 
-            log.info("Retrieving tickets for vendor: {}", vendorName);
-            return ticketRepository.findTicketsByVendorName(vendorName);
+            log.info("Retrieving tickets for vendor: {}", vendorId);
+            return ticketRepository.findTicketsByVendorParticipantId(vendorId);
         } catch (Exception e) {
-            log.error("Error retrieving tickets for vendor: {}", vendorName, e);
+            log.error("Error retrieving tickets for vendor: {}", vendorId, e);
             throw new ResourceProcessingException("Failed to retrieve tickets by vendor");
         }
     }

@@ -127,24 +127,13 @@ public class VendorController {
 
     //get vendor by name
     @GetMapping("/name/{name}")
-    public ResponseEntity<Map<String, Object>> getVendorByName(@PathVariable String name) {
+    public ResponseEntity<Vendor> getVendorByName(@PathVariable String name) {
         log.debug("Retrieving vendor by name: {}", name);
         Optional<Vendor> vendorOptional = vendorService.findVendorByName(name);
 
-        if (vendorOptional.isEmpty()) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("message", "No vendor found with name: " + name);
-            return ResponseEntity.notFound().build();
-        }
-
-        Vendor vendor = vendorOptional.get();
-        Map<String, Object> response = new HashMap<>();
-        response.put("vendor", vendor);
-        response.put("totalTicketsSold", vendor.getTotalTicketsSold());
-        response.put("isActive", vendor.isActive());
-
-        log.info("Successfully retrieved vendor by name: {}", name);
-        return ResponseEntity.ok(response);
+        return vendorOptional
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     //get vendor by email

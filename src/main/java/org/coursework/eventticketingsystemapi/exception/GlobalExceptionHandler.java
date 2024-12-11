@@ -15,10 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+//Ref: https://www.baeldung.com/exception-handling-for-rest-with-spring
+// Global Exception Handler
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    //Ref: https://www.baeldung.com/exception-handling-for-rest-with-spring
     // Create standardized error response method
     private ResponseEntity<Object> createErrorResponse(String message, Object errors, HttpStatus httpStatus) {
         try {
@@ -90,17 +93,6 @@ public class GlobalExceptionHandler {
         logger.error("Customer Registration Error: {}", ex.getMessage());
         return createErrorResponse(
                 "Customer Registration Failed",
-                ex.getMessage(),
-                HttpStatus.BAD_REQUEST
-        );
-    }
-
-    // Vendor Registration Exception
-    @ExceptionHandler(VendorRegistrationException.class)
-    public ResponseEntity<Object> handleVendorRegistrationException(VendorRegistrationException ex) {
-        logger.error("Vendor Registration Error: {}", ex.getMessage());
-        return createErrorResponse(
-                "Vendor Registration Failed",
                 ex.getMessage(),
                 HttpStatus.BAD_REQUEST
         );

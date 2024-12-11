@@ -3,6 +3,7 @@ package org.coursework.eventticketingsystemapi.service;
 import org.coursework.eventticketingsystemapi.exception.ResourceNotFoundException;
 import org.coursework.eventticketingsystemapi.exception.ResourceProcessingException;
 import org.coursework.eventticketingsystemapi.model.Customer;
+import org.coursework.eventticketingsystemapi.model.Vendor;
 import org.coursework.eventticketingsystemapi.repository.CustomerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +38,10 @@ public class CustomerService {
     public Map<String, Customer> getAllCustomers() {
         try {
             log.debug("Retrieving all customers");
-            customerRepository.findAll().forEach(this::initializeCustomerServices);
-            log.info("Successfully retrieved {} all customers", activeCustomers.size());
-            return activeCustomers;
+            Map<String, Customer> allCustomers = new ConcurrentHashMap<>();
+            customerRepository.findAll().forEach(vendor -> allCustomers.put(vendor.getParticipantId(), vendor));
+            log.info("Successfully retrieved {} all vendors", allCustomers.size());
+            return allCustomers;
         } catch (Exception e) {
             log.error("Error retrieving all customers: {}", e.getMessage(), e);
             throw new ResourceProcessingException("Failed to retrieve all customers");
@@ -102,8 +104,8 @@ public class CustomerService {
     public int findTotalTicketsPurchasedByCustomer(String customerName) {
         try {
             log.debug("Finding total tickets purchased by customer: {}", customerName);
-            Customer customer = getCustomerById(customerName);
-            int totalTicketsPurchased = customer.getTotalTicketsPurchased();
+            Optional<Customer> customer = findCustomerByName(customerName);
+            int totalTicketsPurchased = customer.get().getTotalTicketsPurchased();
             log.info("Total tickets purchased by customer {}: {}", customerName, totalTicketsPurchased);
         } catch (Exception e) {
             log.error("Error finding total tickets purchased by customer {}: {}", customerName, e.getMessage(), e);
@@ -252,6 +254,22 @@ public class CustomerService {
         } catch (Exception e) {
             log.error("Error deactivating customer {}: {}", customerId, e.getMessage(), e);
             throw new ResourceProcessingException("Failed to deactivate customer");
+        }
+    }
+
+    //delete a customer
+    public void deleteCustomer(String customerName) {
+        try {
+           log.info("Deleting customer: {}", customerName);
+            Customer customer = findCustomerByName(customerName)
+                    .orElseThrow(() -> new IllegalArgumentException("Customer not found with name: " + customerName));
+            deactivateCustomer(customer.getParticipantId());
+            customerRepository.delete(customer);
+
+            log.info("Customer {} deleted successfully", customerName);
+        } catch (Exception e) {
+           log.error("Error deleting customer {}: {}", customerName, e.getMessage());
+            throw new ResourceProcessingException("Failed to delete vendor");
         }
     }
 

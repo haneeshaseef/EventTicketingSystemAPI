@@ -257,7 +257,7 @@ public class AuthService {
             log.error("Error reading admin credentials file: {}", e.getMessage());
             throw new ResourceProcessingException("Failed to read admin credentials");
         } catch (Exception e) {
-            log.error("Error logging in admin: {}", username, e);
+            log.error("Error logging in admin: {}", username);
             throw new ResourceProcessingException("Failed to login admin: " + e.getMessage());
         }
     }

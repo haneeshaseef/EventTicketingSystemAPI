@@ -3,10 +3,8 @@ package org.coursework.eventticketingsystemapi.controller;
 import org.coursework.eventticketingsystemapi.model.Customer;
 import org.coursework.eventticketingsystemapi.model.EventConfiguration;
 import org.coursework.eventticketingsystemapi.model.Ticket;
-import org.coursework.eventticketingsystemapi.service.CustomerService;
-import org.coursework.eventticketingsystemapi.service.EventConfigurationService;
-import org.coursework.eventticketingsystemapi.service.TicketPoolService;
-import org.coursework.eventticketingsystemapi.service.TicketService;
+import org.coursework.eventticketingsystemapi.model.Vendor;
+import org.coursework.eventticketingsystemapi.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +27,16 @@ public class TicketPoolController {
     private final EventConfigurationService configurationService;
     private final TicketService ticketService;
     private final CustomerService customerService;
+    private final VendorService vendorService;
 
     @Autowired
     public TicketPoolController(TicketPoolService ticketPoolService,
-                                EventConfigurationService configurationService,TicketService ticketService,CustomerService customerService) {
+                                EventConfigurationService configurationService, TicketService ticketService, CustomerService customerService, VendorService vendorService) {
         this.ticketPoolService = ticketPoolService;
         this.configurationService = configurationService;
         this.ticketService = ticketService;
         this.customerService = customerService;
+        this.vendorService = vendorService;
     }
 
     // Event Configuration Endpoints
@@ -96,7 +96,7 @@ public class TicketPoolController {
     }
 
     //find ticket by customer name
-    @GetMapping("/{customerName}/tickets")
+    @GetMapping("/customer/name/{customerName}/tickets")
     public ResponseEntity<List<Ticket>> findTicketsByCustomer(@PathVariable String customerName) {
         Optional<Customer> customer = customerService.findCustomerByName(customerName);
 
@@ -110,17 +110,23 @@ public class TicketPoolController {
     }
 
     //find ticket by vendor name
-    @GetMapping("/{vendorName}/tickets")
+    @GetMapping("/vendor/name/{vendorName}/tickets")
     public ResponseEntity<List<Ticket>> findTicketsByVendor(@PathVariable String vendorName) {
-        List<Ticket> tickets = ticketService.getTicketsByVendor(vendorName);
-        return ResponseEntity.ok(tickets);
+        Optional<Vendor> vendor = vendorService.findVendorByName(vendorName);
+
+        if (vendor.isPresent()) {
+            List<Ticket> tickets = ticketService.getTicketsByVendor(vendor.get().getParticipantId());
+            return ResponseEntity.ok(tickets);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     //deleteTicketForCustomer with ticket ID
-    @DeleteMapping("/tickets/{customerName}/deleteTicket")
-    public ResponseEntity<String> deleteTicketForCustomer(@PathVariable String customerName, @RequestParam String ticketId) {
+    @DeleteMapping("/tickets/{ticketId}/deleteTicket")
+    public ResponseEntity<String> deleteTicketForCustomer(@PathVariable String ticketId) {
         ticketService.deleteTicket(ticketId);
-        return ResponseEntity.ok("Ticket with ID " + ticketId +"and for customer"+ customerName+ " deleted successfully");
+        return ResponseEntity.ok("Ticket deleted successfully");
     }
 
     //get ticket by id
@@ -129,4 +135,5 @@ public class TicketPoolController {
         Ticket ticket = ticketService.getTicketById(ticketId);
         return ResponseEntity.ok(ticket);
     }
+
 }

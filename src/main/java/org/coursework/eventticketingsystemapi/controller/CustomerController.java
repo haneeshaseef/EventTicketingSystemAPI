@@ -144,34 +144,21 @@ public class CustomerController {
 
     //get customer by name
     @GetMapping("/name/{name}")
-    public ResponseEntity<Map<String, Object>> getCustomerByName(@PathVariable String name) {
+    public ResponseEntity<Customer> getCustomerByName(@PathVariable String name) {
         log.debug("Retrieving customer by name: {}", name);
         Optional<Customer> customerOptional = customerService.findCustomerByName(name);
 
-        if (customerOptional.isEmpty()) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("message", "No customer found with name: " + name);
-            return ResponseEntity.notFound().build();
-        }
-
-        Customer customer = customerOptional.get();
-        Map<String, Object> response = new HashMap<>();
-        response.put("customer", customer);
-        response.put("ticketsPurchased", customer.getTotalTicketsPurchased());
-        response.put("isActive", customer.isActive());
-
-        log.info("Successfully retrieved customer by name: {}", name);
-        return ResponseEntity.ok(response);
+        return customerOptional
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    //delete customer by ID
-    @DeleteMapping("/{customerId}")
-    public ResponseEntity<Map<String, Object>> deleteCustomer(@PathVariable String customerId) {
-        log.debug("Deleting customer: {}", customerId);
-        Customer customer = customerService.getCustomerById(customerId);
-        String customerName = customer.getName();
+    //delete customer by name
+    @DeleteMapping("/{customerName}")
+    public ResponseEntity<Map<String, Object>> deleteCustomer(@PathVariable String customerName) {
+        log.debug("Deleting customer: {}", customerName);
 
-        customerService.deactivateCustomer(customerId);
+        customerService.deleteCustomer(customerName);
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Customer successfully deleted");
